@@ -1,0 +1,47 @@
+Queries:
+
+User and Admin:
+- login(username, password): int //0 : normal user; 1: admin; -1: error
+
+User:
+- suggestedWorkingGroups(User): Map<WorkingGroup, Double> //called after the login procedure
+- insertApplication(Application): boolean //false if the working group is full or the user already applied for it; it's an edge in the db
+- loadWorkingGroups(User): List<WorkingGroups>
+- loadUsersInWorkingGroup(WorkingGroup): List<User>
+- loadWorkingGroupLeader(WorkingGroup): User
+- loadLeadedWorkingGroups(User): List<WorkingGroups>
+- loadApplications(WorkingGroup): List<Application>
+- acceptApplication(Application)
+- markWorkAsCompleted(User, WorkingGroup): boolean
+- checkCompletedWork(WorkingGroup): boolean
+
+Admin:
+- loadWorkingGroup(): List<WorkingGroup>
+- insertWorkingGroup(WorkingGroup)
+- loadUsers(): List<Users>
+- insertUser(User): boolean
+- deleteUser(User): boolean
+
+-----------------------------------------------------------
+
+Objects:
+User:
+	- username: String
+	- password: String
+	- adminLvl: int
+	- firstName: String
+	- lastName: String
+	- matriculationNum: int
+	- email: String
+
+Application:
+	- user: User
+	- timestamp: Date
+	- workingGroup: WorkingGroup
+
+WorkingGroup:
+	- description: String
+	- startDate: Date
+	- deadlineDate: Date
+	- usersRequired: int
+	- completed: boolean
