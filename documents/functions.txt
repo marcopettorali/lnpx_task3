@@ -21,6 +21,7 @@ Admin:
 - loadUsers(): List<Users>
 - insertUser(User): boolean
 - deleteUser(User): boolean
+- loadWorstLeaders(): List<Users>
 
 -----------------------------------------------------------
 
