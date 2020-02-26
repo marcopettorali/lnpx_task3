@@ -1,27 +1,28 @@
 Queries:
 
 User and Admin:
-- login(username, password): int //0 : normal user; 1: admin; -1: error
+R- login(username, password): int //0 : normal user; 1: admin; -1: error
 
 User:
-- suggestedWorkingGroups(User): Map<WorkingGroup, Double> //called after the login procedure
-- insertApplication(Application): boolean //false if the working group is full or the user already applied for it; it's an edge in the db
-- loadWorkingGroups(User): List<WorkingGroups>
-- loadUsersInWorkingGroup(WorkingGroup): List<User>
-- loadWorkingGroupLeader(WorkingGroup): User
-- loadLeadedWorkingGroups(User): List<WorkingGroups>
-- loadApplications(WorkingGroup): List<Application>
-- acceptApplication(Application)
-- markWorkAsCompleted(User, WorkingGroup): boolean
-- checkCompletedWork(WorkingGroup): boolean
+G- suggestedWorkingGroups(User): Map<WorkingGroup, Double> //called after the login procedure
+IMPLEMENTATA - C- insertApplication(Application): boolean //false if the working group is full or the user already applied for it; it's an edge in the db
+IMPLEMENTATA - R- loadWorkingGroups(user: String): List<WorkingGroups>
+IMPLEMENTATA - R- loadUsersInWorkingGroup(workingGroupID: int): List<User>
+IMPLEMENTATA - R- loadWorkingGroupLeader(workingGroupID: int): User
+IMPLEMENTATA - R- loadLeadedWorkingGroups(User): List<WorkingGroups>
+IMPLEMENTATA  -R- loadApplications(workingGroupID: int): List<Application>
+C,D- acceptApplication(Application)
+	
+U- markWorkAsCompleted(User, WorkingGroup): boolean
+R- checkCompletedWork(WorkingGroup): boolean
 
 Admin:
-- loadWorkingGroup(): List<WorkingGroup>
-- insertWorkingGroup(WorkingGroup)
-- loadUsers(): List<Users>
-- insertUser(User): boolean
-- deleteUser(User): boolean
-- loadWorstLeaders(): List<Users>
+R- loadWorkingGroup(): List<WorkingGroup>
+C- insertWorkingGroup(WorkingGroup)
+R- loadUsers(): List<Users>
+C- insertUser(User): boolean
+D- deleteUser(User): boolean
+G- loadWorstLeaders(): List<Users>
 
 -----------------------------------------------------------
 
@@ -35,12 +36,13 @@ User:
 	- matriculationNum: int
 	- email: String
 
-Application:
-	- user: User
+Application: //ho modificato queste, Dario chiamami
+	- username: String
 	- timestamp: Date
-	- workingGroup: WorkingGroup
+	- workingGroupID: int
 
 WorkingGroup:
+	- id: int
 	- description: String
 	- startDate: Date
 	- deadlineDate: Date
