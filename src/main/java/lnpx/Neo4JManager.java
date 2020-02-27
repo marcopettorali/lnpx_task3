@@ -33,7 +33,7 @@ public class Neo4JManager {
         }
     }
 
-    private static List<WorkingGroup> loadWorkingGroups(String user) {
+    private static List<WorkingGroup> loadWorkingGroupsForUser(String user) {
         try (Session session = driver.session()) {
             List<WorkingGroup> ret = new ArrayList<>();
             session.readTransaction((Transaction tx) -> {

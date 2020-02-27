@@ -6,7 +6,7 @@ R- login(username, password): int //0 : normal user; 1: admin; -1: error
 User:
 IMPLEMENTATA - G- loadSuggestedWorkingGroups(User): Map<WorkingGroup, Double> //called after the login procedure
 IMPLEMENTATA - C- insertApplication(Application): boolean //false if the working group is full or the user already applied for it; it's an edge in the db
-IMPLEMENTATA - R- loadWorkingGroups(user: String): List<WorkingGroups>
+IMPLEMENTATA - R- loadWorkingGroupsForUser(user: String): List<WorkingGroups>
 IMPLEMENTATA - R- loadUsersInWorkingGroup(workingGroupID: int): List<User>
 IMPLEMENTATA - R- loadWorkingGroupLeader(workingGroupID: int): User
 IMPLEMENTATA - R- loadLeadedWorkingGroups(User): List<WorkingGroups>
@@ -17,7 +17,7 @@ U- markWorkAsCompleted(User, WorkingGroup): boolean
 R- checkCompletedWork(WorkingGroup): boolean
 
 Admin:
-R- loadWorkingGroup(): List<WorkingGroup>
+R- loadWorkingGroups(): List<WorkingGroup>
 C- insertWorkingGroup(WorkingGroup)
 R- loadUsers(): List<Users>
 C- insertUser(User): boolean
