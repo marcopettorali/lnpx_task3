@@ -79,7 +79,7 @@ public class Neo4JTest {
 
     private static List<String> recommendFriends(String user) {
         try (Session session = driver.session()) {
-            List<String> ret = new ArrayList<>();;
+            List<String> ret = new ArrayList<>();
             session.readTransaction((Transaction tx) -> {
                 String query = ""
                         + "MATCH (u1:Person)-[:KNOWS]->(u2:Person)-[:KNOWS]->(u3:Person) "
