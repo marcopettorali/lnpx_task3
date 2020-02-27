@@ -1,5 +1,6 @@
 package lnpx;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import org.neo4j.driver.v1.*;
@@ -8,15 +9,15 @@ public class Neo4JManager {
 
     private static Driver driver;
 
-    private static void connectToDB(String uri, String user, String password) {
+    public static void connectToDB(String uri, String user, String password) {
         driver = GraphDatabase.driver(uri, AuthTokens.basic(user, password));
     }
 
-    private static void closeDB() {
+    public static void closeDB() {
         driver.close();
     }
 
-    private static void insertApplication(Application application) {
+    public static void insertApplication(Application application) {
         try (Session session = driver.session()) {
             session.writeTransaction((Transaction tx) -> {
                 String query = ""
@@ -33,7 +34,7 @@ public class Neo4JManager {
         }
     }
 
-    private static List<WorkingGroup> loadWorkingGroupsForUser(String user) {
+    public static List<WorkingGroup> loadWorkingGroupsForUser(String user) {
         try (Session session = driver.session()) {
             List<WorkingGroup> ret = new ArrayList<>();
             session.readTransaction((Transaction tx) -> {
@@ -65,7 +66,7 @@ public class Neo4JManager {
         }
     }
 
-    private static List<User> loadUsersInWorkingGroup(int workingGroupID) {
+    public static List<User> loadUsersInWorkingGroup(int workingGroupID) {
         try (Session session = driver.session()) {
             List<User> ret = new ArrayList<>();
             session.readTransaction((Transaction tx) -> {
@@ -98,7 +99,7 @@ public class Neo4JManager {
         }
     }
 
-    private static List<User> loadWorkingGroupLeader(int workingGroupID) {
+    public static List<User> loadWorkingGroupLeader(int workingGroupID) {
         try (Session session = driver.session()) {
             List<User> ret = new ArrayList<>();
             session.readTransaction((Transaction tx) -> {
@@ -131,7 +132,7 @@ public class Neo4JManager {
         }
     }
 
-    private static List<WorkingGroup> loadLeadedWorkingGroups(String user) {
+    public static List<WorkingGroup> loadLeadedWorkingGroups(String user) {
         try (Session session = driver.session()) {
             List<WorkingGroup> ret = new ArrayList<>();
             session.readTransaction((Transaction tx) -> {
@@ -163,7 +164,7 @@ public class Neo4JManager {
         }
     }
 
-    private static List<Application> loadApplications(int workingGroupID) {
+    public static List<Application> loadApplications(int workingGroupID) {
         try (Session session = driver.session()) {
             List<Application> ret = new ArrayList<>();
             session.readTransaction((Transaction tx) -> {
@@ -192,7 +193,7 @@ public class Neo4JManager {
         }
     }
 
-    private static void acceptApplication(Application application) {
+    public static void acceptApplication(Application application) {
         try (Session session = driver.session()) {
             session.writeTransaction((Transaction tx) -> {
                 String query1 = ""
@@ -218,7 +219,7 @@ public class Neo4JManager {
         }
     }
 
-    private static Map<WorkingGroup, Double> loadSuggestedWorkingGroups(String user) {
+    public static Map<WorkingGroup, Double> loadSuggestedWorkingGroups(String user) {
         try (Session session = driver.session()) {
             Map<WorkingGroup, Double> ret = new HashMap<>();
             session.readTransaction((Transaction tx) -> {
@@ -252,4 +253,168 @@ public class Neo4JManager {
             return ret;
         }
     }
+  
+   public static int login(String username,String password){
+       
+       try (Session session = driver.session()) {
+            
+           Map<String,Object> controls = new HashMap<>();
+           session.readTransaction((Transaction tx) -> {
+               
+               String query = " MATCH (u:User) "
+                            + " WHERE u.username=$username"
+                            + " RETURN u.password,u.adminLvl";
+               
+               Map<String,Object> param = new HashMap<>();
+               param.put("username",username);
+               StatementResult sr = tx.run(query,param);
+               
+               if(sr.hasNext()){
+                   
+                   controls.put("password",sr.next().get(0).asString());
+                   controls.put("adminLvl",sr.next().get(1).asInt());
+                   
+               }
+               
+               return 1;
+                     
+           });
+          
+         if(controls.isEmpty()){
+             return -1;
+         }
+         if(!controls.get("password").equals(password)){
+             return -1;
+         }
+         if((int)controls.get("adminLvl")== 1){
+             return 1;
+         }else{
+             return 0;
+         }
+           
+       }    
+   }
+   
+   public static List<WorkingGroup> loadWorkingGroup(){
+       
+       try (Session session = driver.session()) {
+           List<WorkingGroup> ret = new ArrayList<>();
+           
+           session.readTransaction((Transaction tx) -> {
+               
+               
+               String query = " MATCH (w:WorkingGroup)"
+                             +" RETURN DISTINCT w.id,w.description,w.startDate,w.deadlineDate,w.usersRequired,w.completed";
+               
+               StatementResult sr=tx.run(query);
+               if(sr.hasNext()){
+                  Record rec = sr.next();
+                   try{ 
+                  
+                        int id = rec.get(0).asInt();
+                        String descr = rec.get(1).asString();
+                        Date d1 = new SimpleDateFormat().parse(rec.get(2).asString());
+                        Date d2 = new SimpleDateFormat().parse(rec.get(3).asString());
+                        int userReq = rec.get(4).asInt();
+                        boolean compl = rec.get(4).asBoolean();
+                        
+                        ret.add(new WorkingGroup(id,descr,d1,d2,userReq,compl));
+                  
+                  }catch(ParseException pe){
+                      System.out.println("There was an error during the parsing of the string");
+                  }
+                   
+               }
+               
+              return 1; 
+           });
+           
+        return ret;
+       }
+   
+   }
+   
+   public static void insertUser(User u){
+       
+       try (Session session = driver.session()) {
+           
+           session.writeTransaction((Transaction tx) -> {
+           
+               Map<String,Object> params=new HashMap<>();
+               String query="CREATE (u:User {"
+                           +" username=$username, password=$password, adminLvl=$adminLvl, firstName=$firstName,"
+                           + "lastName=$lastName, matriculationNumber=$matr, email=$email";
+               
+               params.put("username",u.getUsername());
+               params.put("password",u.getPassword());
+               params.put("adminLvl",u.getAdminLvl());
+               params.put("firstName",u.getFirstName());
+               params.put("lastName",u.getLastName());
+               params.put("matr",u.getMatriculationNum());
+               params.put("email",u.getEmail());
+               
+               tx.run(query,params);
+               return 1;
+       });
+       
+     }
+   }
+   
+    public static void insertWorkinGroup(WorkingGroup wg){
+        
+         try (Session session = driver.session()) {
+             session.writeTransaction((Transaction tx) -> {
+           
+               Map<String,Object> params=new HashMap<>();
+               String query = "CREATE (w:WorkingGroup{"
+                            + "id=$id, description=$description, startDate=$startDate,"
+                            + " deadlineDate=$deadlineDate, usersRequired=$usersRequired, completed=$completed ";
+               
+               params.put("id",wg.getId());
+               params.put("description",wg.getDescription());
+               params.put("startDate",wg.getStartDate());
+               params.put("deadlineDate",wg.getDeadlineDate());
+               params.put("usersRequired",wg.getUsersRequired());
+               params.put("completed",wg.isCompleted());
+               
+               tx.run(query,params);
+               return 1;
+             });
+             
+         }
+       }
+    
+    public static List<User> loadUsers(){
+        
+        try (Session session = driver.session()) {
+            List<User> ret = new ArrayList<>();
+            session.readTransaction((Transaction tx) -> {
+                
+               String query = "MATCH (u:User) "
+                            + "RETURN DISTINCT u";
+               
+               StatementResult sr = tx.run(query);
+               
+               while(sr.hasNext()){
+                   
+                   Record rec = sr.next();
+                   String usern = rec.get(0).asString();
+                   String passw = rec.get(1).asString();
+                   int adminLvl = rec.get(2).asInt();
+                   String first = rec.get(3).asString();
+                   String last = rec.get(4).asString();
+                   int matr = rec.get(5).asInt();
+                   String email = rec.get(6).asString();
+                   
+                   ret.add( new User(usern,passw,adminLvl,first,last,matr,email));
+                   
+               }
+               
+              return 1; 
+            });
+        return ret;    
+        }    
+    }
+    
+   
 }
