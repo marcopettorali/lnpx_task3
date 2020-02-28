@@ -3,6 +3,7 @@ package lnpx;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Map.Entry;
 import org.neo4j.driver.v1.*;
 
 public class Neo4JManager {
@@ -337,7 +338,7 @@ public class Neo4JManager {
                         Date d1 = new SimpleDateFormat().parse(rec.get(2).asString());
                         Date d2 = new SimpleDateFormat().parse(rec.get(3).asString());
                         int userReq = rec.get(4).asInt();
-                        boolean compl = rec.get(4).asBoolean();
+                        boolean compl = rec.get(5).asBoolean();
 
                         ret.add(new WorkingGroup(id, descr, d1, d2, userReq, compl));
 
@@ -363,8 +364,8 @@ public class Neo4JManager {
 
                 Map<String, Object> params = new HashMap<>();
                 String query = "CREATE (u:User {"
-                        + " username=$username, password=$password, adminLvl=$adminLvl, firstName=$firstName,"
-                        + "lastName=$lastName, matriculationNumber=$matr, email=$email";
+                        + " username:$username, password:$password, adminLvl:$adminLvl, firstName:$firstName,"
+                        + "lastName:$lastName, matriculationNumber:$matr, email:$email";
 
                 params.put("username", u.getUsername());
                 params.put("password", u.getPassword());
@@ -381,15 +382,15 @@ public class Neo4JManager {
         }
     }
 
-    public static void insertWorkinGroup(WorkingGroup wg) {
+    public static void insertWorkinGroup(WorkingGroup wg,User u) {
 
         try (Session session = driver.session()) {
             session.writeTransaction((Transaction tx) -> {
 
                 Map<String, Object> params = new HashMap<>();
                 String query = "CREATE (w:WorkingGroup{"
-                        + "id=$id, description=$description, startDate=$startDate,"
-                        + " deadlineDate=$deadlineDate, usersRequired=$usersRequired, completed=$completed ";
+                        + "id:$id, description:$description, startDate:$startDate,"
+                        + " deadlineDate:$deadlineDate, usersRequired:$usersRequired, completed:$completed ";
 
                 params.put("id", wg.getId());
                 params.put("description", wg.getDescription());
@@ -399,6 +400,19 @@ public class Neo4JManager {
                 params.put("completed", wg.isCompleted());
 
                 tx.run(query, params);
+                
+                String query2 = "MATCH (u:User) WHERE u.username=$username "
+                              + "MATCH (w:WorkingGroup) WHERE w.id=$id "
+                              + "CREATE (u)-[:LEADER_OF]->(w),"
+                              + "(u)-[:WORKS_IN{since: $startDate, completed: false}]->(w) ";
+                
+                params.clear();
+                params.put("username",u.getUsername());
+                params.put("id",wg.getId());
+                params.put("startDate", wg.getStartDate());
+                
+                tx.run(query2,params);
+                
                 return 1;
             });
 
@@ -412,7 +426,8 @@ public class Neo4JManager {
             session.readTransaction((Transaction tx) -> {
 
                 String query = "MATCH (u:User) "
-                        + "RETURN DISTINCT u";
+                        + "RETURN DISTINCT u.username,u.password,u.adminLvl,u.firstName,u.lastName, "
+                        + "u.matriculationNumber, u.email";
 
                 StatementResult sr = tx.run(query);
 
@@ -436,5 +451,188 @@ public class Neo4JManager {
             return ret;
         }
     }
+    
+    public static void deleteUser(User u){
+       
+       try(Session session = driver.session()){
+           
+           session.writeTransaction((Transaction tx) ->{
+               
+               Map<String,Object> param = new HashMap<>();
+               String query = " MATCH (u:User)"
+                            + "WHERE u.username=$username "
+                            + "DELETE u ";
+               
+               param.put("username",u.getUsername());
+               StatementResult sr = tx.run(query,param);
+               return 1;
+               
+           });
+           
+       }
+     
+   }
+    
+    public static Map<User,Double> loadWorstLeaders(){
+        
+         try(Session session = driver.session()){
+             
+             Map<User,Double> ret = new HashMap<>();
+             
+             Map<User,List<WorkingGroup>> user_group = new HashMap<>();
+             Map<Integer,Double> group_percentage = new HashMap<>();
+             Map<String,Object> params = new HashMap<>();
+             session.readTransaction((Transaction tx) ->{
+                
+                 String query = "MATCH (u:User)-[:LEADER_OF]->(w:WorkingGroup) "
+                              + "RETURN DISTINCT u.username,u.password,u.adminLvl,u.firstName,u.lastName, "
+                              + "u.matriculationNumber, u.email "
+                              + ",w.id,w.description,w.startDate,w.deadlineDate,w.usersRequired,w.completed ";
+                 
+                 StatementResult sr = tx.run(query);
+                 while(sr.hasNext()){
+                     
+                     Record rec = sr.next();
+                     try{
+                        int id = rec.get(7).asInt();
+                        String descr = rec.get(8).asString();
+                        Date d1 = new SimpleDateFormat().parse(rec.get(9).asString());
+                        Date d2 = new SimpleDateFormat().parse(rec.get(10).asString());
+                        int userReq = rec.get(11).asInt();
+                        boolean compl = rec.get(12).asBoolean();
+                        
+                        WorkingGroup temp = new WorkingGroup(id,descr,d1,d2,userReq,compl); 
+                        
+                        String usern = rec.get(0).asString();
+                        String passw = rec.get(1).asString();
+                        int adminLvl = rec.get(2).asInt();
+                        String first = rec.get(3).asString();
+                        String last = rec.get(4).asString();
+                        int matr = rec.get(5).asInt();
+                        String email = rec.get(6).asString();
+                        
+                        User u = new User(usern,passw,adminLvl,first,last,matr,email);
+                        
+                        if(!user_group.containsKey(u)){
+                            user_group.put(u,new ArrayList<WorkingGroup>());
+                        }
+                        user_group.get(u).add(temp);
+                        
+                     }catch(ParseException pe){
+                         System.out.println("There was an error during the parsing of the string");
+                     }
+                     
+                     
+                   }
+                 
+                 String query2 = "MATCH (u:User)-[wi:WORKS_IN]->(w:WorkingGroup) "
+                               + "RETURN DISTINCT w.id,w.usersRequired,count(wi) ";
+                 
+                 StatementResult sr1 = tx.run(query2);
+                 while(sr.hasNext()){
+                     
+                     Record rec = sr.next();
+                     int id = rec.get(0).asInt();
+                     double req = rec.get(1).asDouble();
+                     double count = rec.get(2).asDouble();
+                     double percentage = (count/req)*100;
+                     
+                     group_percentage.put(id,percentage);
+                     
+                 }
+               return 1;  
+             });
+           
+            for(Map.Entry<User,List<WorkingGroup>> entry : user_group.entrySet()){
+             
+                double somma = 0;
+                List<WorkingGroup> appoggio = entry.getValue();
+                for(int i=0;i<appoggio.size();i++){
+                    somma+=group_percentage.get(appoggio.get(i).getId());
+                }
+                somma=somma/appoggio.size();
+                if(somma!=100){
+                    ret.put(entry.getKey(),somma);
+                }
+            } 
+           List<Entry<User,Double>> list = new ArrayList<>(ret.entrySet());
+           list.sort(Entry.comparingByValue());
 
+           Map<User,Double> result = new LinkedHashMap<>();
+           
+           for (Entry<User,Double> entry : list) {
+            result.put(entry.getKey(), entry.getValue());
+            } 
+           return result;
+             
+         }
+          
+    }
+
+    public static void markWorkAsCompleted(User u,WorkingGroup wg){
+        
+        try(Session session = driver.session()){
+            Map<String,Object> params = new HashMap<>();
+            session.writeTransaction((Transaction tx)->{
+               
+                String query = "MATCH (u:User)-[wi:WORKS_IN]->(w:WorkingGroup) "
+                             + "WHERE u.username=$username and w.id=$id "
+                             + "Set wi.completed=true ";
+                params.put("username",u.getUsername());
+                params.put("id",wg.getId());
+                
+                tx.run(query,params);
+                boolean b=checkCompletedWork(wg);
+                
+                if(b){
+                    
+                    String query2 = "MATCH (w:WorkingGroup) WHERE w.id=$id "
+                                  + "Set w.completed=true";
+                    params.clear();
+                    params.put("id",wg.getId());
+                    
+                    tx.run(query2,params);
+                  
+                }
+                
+                
+                return 1;
+                
+            });
+        }
+    } 
+        
+    public static boolean checkCompletedWork(WorkingGroup wg){
+        
+        try(Session session = driver.session()){
+            Map<String,Object> params = new HashMap<>();
+            List<Boolean> ret = new ArrayList<>();
+            session.readTransaction((Transaction tx)->{
+                
+                String query = "MATCH ()-[wi:WORKS_IN]->(w:WorkingGroup) "
+                             + "WHERE w.id=$id and wi.completed=true "
+                             + "RETURN w.usersRequired,count(wi)";
+                
+                params.put("id",wg.getId());
+                StatementResult sr=tx.run(query,params);
+                if(sr.hasNext()){
+                    
+                    Record rec = sr.next();
+                    int req = rec.get(0).asInt();
+                    int count = rec.get(1).asInt();
+                    if(req == count){
+                        ret.add(true);
+                    }
+                    else{
+                        ret.add(false);
+                    }
+                
+                }
+                return 1;
+                
+            });
+         return ret.get(0);   
+        }       
+    }
+    
 }
