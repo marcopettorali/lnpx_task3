@@ -364,14 +364,14 @@ public class Neo4JManager {
                         + " RETURN DISTINCT w.id,w.description,w.startDate,w.deadlineDate,w.usersRequired,w.completed";
 
                 StatementResult sr = tx.run(query);
-                if (sr.hasNext()) {
+                while (sr.hasNext()) {
                     Record rec = sr.next();
                     
 
                         int id = rec.get(0).asInt();
                         String descr = rec.get(1).asString();
-                        String d1 = rec.get(2).asString();
-                        String d2 = rec.get(3).asString();
+                        String d1 = rec.get(2).asLocalDate().toString();
+                        String d2 = rec.get(3).asLocalDate().toString();
                         int userReq = rec.get(4).asInt();
                         boolean compl = rec.get(5).asBoolean();
 
@@ -460,7 +460,7 @@ public class Neo4JManager {
 
                 String query = "MATCH (u:User) "
                         + "RETURN DISTINCT u.username,u.password,u.adminLvl,u.firstName,u.lastName, "
-                        + "u.matriculationNumber, u.email";
+                        + "u.matriculationNum, u.email";
 
                 StatementResult sr = tx.run(query);
 
@@ -509,7 +509,7 @@ public class Neo4JManager {
     public static Map<User, Double> loadWorstLeaders() {
 
         try (Session session = driver.session()) {
-
+            List<Boolean> test=new ArrayList<>();
             Map<User, Double> ret = new HashMap<>();
 
             Map<User, List<WorkingGroup>> user_group = new HashMap<>();
@@ -526,15 +526,15 @@ public class Neo4JManager {
                 while (sr.hasNext()) {
 
                     Record rec = sr.next();
-                    try {
+                    
                         int id = rec.get(7).asInt();
                         String descr = rec.get(8).asString();
-                        Date d1 = new SimpleDateFormat().parse(rec.get(9).asString());
-                        Date d2 = new SimpleDateFormat().parse(rec.get(10).asString());
+                        String d1 = rec.get(9).asLocalDate().toString();
+                        String d2 = rec.get(10).asLocalDate().toString();
                         int userReq = rec.get(11).asInt();
                         boolean compl = rec.get(12).asBoolean();
 
-                      //  WorkingGroup temp = new WorkingGroup(id, descr, d1, d2, userReq, compl);
+                        WorkingGroup temp = new WorkingGroup(id, descr, d1, d2, userReq, compl);
 
                         String usern = rec.get(0).asString();
                         String passw = rec.get(1).asString();
@@ -547,13 +547,9 @@ public class Neo4JManager {
                         User u = new User(usern, passw, adminLvl, first, last, matr, email);
 
                         if (!user_group.containsKey(u)) {
-                            user_group.put(u, new ArrayList<WorkingGroup>());
+                            user_group.put(u, new ArrayList<>());
                         }
-                       // user_group.get(u).add(temp);
-
-                    } catch (ParseException pe) {
-                        System.out.println("There was an error during the parsing of the string");
-                    }
+                        user_group.get(u).add(temp);
 
                 }
 
@@ -561,26 +557,27 @@ public class Neo4JManager {
                         + "RETURN DISTINCT w.id,w.usersRequired,count(wi) ";
 
                 StatementResult sr1 = tx.run(query2);
-                while (sr.hasNext()) {
-
+                while (sr1.hasNext()) {
+                    test.add(true);
                     Record rec = sr.next();
                     int id = rec.get(0).asInt();
                     double req = rec.get(1).asDouble();
                     double count = rec.get(2).asDouble();
                     double percentage = (count / req) * 100;
 
+                    
                     group_percentage.put(id, percentage);
-
+                    
                 }
                 return 1;
             });
-
+            
             for (Map.Entry<User, List<WorkingGroup>> entry : user_group.entrySet()) {
 
                 double somma = 0;
                 List<WorkingGroup> appoggio = entry.getValue();
                 for (int i = 0; i < appoggio.size(); i++) {
-                    somma += group_percentage.get(appoggio.get(i).getId());
+                 //   somma += group_percentage.get(appoggio.get(i).getId());
                 }
                 somma = somma / appoggio.size();
                 if (somma != 100) {

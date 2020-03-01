@@ -3,6 +3,8 @@ package lnpx;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -29,8 +31,9 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         //launch(args);
         Neo4JManager.connectToDB("bolt://localhost:7687","Graph","");
-        Neo4JManager.createTestDB();
-           
+        //Neo4JManager.createTestDB();
+       Map<User,Double> us = Neo4JManager.loadWorstLeaders();
+       System.out.println(us.keySet().iterator().next().getUsername());
         Neo4JManager.closeDB();
     }
 
