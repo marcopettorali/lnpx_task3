@@ -42,22 +42,14 @@ public class Neo4JManager {
         insertUser(new User("paul", "paul", 1, "Paul", "Pogba", 101010, "paul@neo4j.com"));
         insertUser(new User("romelu", "romelu", 1, "Romelu", "Lukaku", 121212, "romelu@neo4j.com"));
 
-        //        private int id;
-//    private String description;
-//    private Date startDate;
-//    private Date deadlineDate;
-//    private int usersRequired;
-//    private boolean completed;S
-        try {
-            insertWorkingGroup(new WorkingGroup(0, "Best squad 4ever", new SimpleDateFormat().parse("2020-01-10"), new SimpleDateFormat().parse("2020-10-01"), 11, false), "cristiano");
-            insertWorkingGroup(new WorkingGroup(1, "DB project", new SimpleDateFormat().parse("2020-01-10"), new SimpleDateFormat().parse("2020-10-01"), 11, false), "cristiano");
-            insertWorkingGroup(new WorkingGroup(2, "Champions League", new SimpleDateFormat().parse("2020-01-10"), new SimpleDateFormat().parse("2020-10-01"), 11, false), "cristiano");
-            insertWorkingGroup(new WorkingGroup(3, "Serie A", new SimpleDateFormat().parse("2020-01-10"), new SimpleDateFormat().parse("2020-10-01"), 11, false), "cristiano");
-            insertWorkingGroup(new WorkingGroup(4, "Best Friends", new SimpleDateFormat().parse("2020-01-10"), new SimpleDateFormat().parse("2020-10-01"), 11, false), "cristiano");
+    
+      
+            insertWorkingGroup(new WorkingGroup(0, "Best squad 4ever", "2020-01-10", "2020-10-01", 11, false), "cristiano");
+            insertWorkingGroup(new WorkingGroup(1, "DB project", "2020-01-10", "2020-10-01", 11, false), "cristiano");
+            insertWorkingGroup(new WorkingGroup(2, "Champions League", "2020-01-10", "2020-10-01", 11, false), "cristiano");
+            insertWorkingGroup(new WorkingGroup(3, "Serie A","2020-01-10", "2020-10-01", 11, false), "cristiano");
+            insertWorkingGroup(new WorkingGroup(4, "Best Friends","2020-01-10", "2020-10-01", 11, false), "cristiano");
 
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-        }
 
     }
 
@@ -96,8 +88,8 @@ public class Neo4JManager {
                         ret.add(new WorkingGroup(
                                 next.get(0).asInt(),
                                 next.get(1).asString(),
-                                new SimpleDateFormat().parse(next.get(2).asString()),
-                                new SimpleDateFormat().parse(next.get(3).asString()),
+                                next.get(2).asString(),
+                                next.get(3).asString(),
                                 next.get(4).asInt(),
                                 next.get(5).asBoolean()
                         ));
@@ -197,8 +189,8 @@ public class Neo4JManager {
                         ret.add(new WorkingGroup(
                                 next.get(0).asInt(),
                                 next.get(1).asString(),
-                                new SimpleDateFormat().parse(next.get(2).asString()),
-                                new SimpleDateFormat().parse(next.get(3).asString()),
+                                next.get(2).asString(),
+                                next.get(3).asString(),
                                 next.get(4).asInt(),
                                 next.get(5).asBoolean()
                         ));
@@ -304,8 +296,8 @@ public class Neo4JManager {
                         ret.put(new WorkingGroup(
                                 next.get(0).asInt(),
                                 next.get(1).asString(),
-                                new SimpleDateFormat().parse(next.get(2).asString()),
-                                new SimpleDateFormat().parse(next.get(3).asString()),
+                                next.get(2).asString(),
+                                next.get(3).asString(),
                                 next.get(4).asInt(),
                                 next.get(5).asBoolean()
                         ),
@@ -374,20 +366,16 @@ public class Neo4JManager {
                 StatementResult sr = tx.run(query);
                 if (sr.hasNext()) {
                     Record rec = sr.next();
-                    try {
+                    
 
                         int id = rec.get(0).asInt();
                         String descr = rec.get(1).asString();
-                        Date d1 = new SimpleDateFormat().parse(rec.get(2).asString());
-                        Date d2 = new SimpleDateFormat().parse(rec.get(3).asString());
+                        String d1 = rec.get(2).asString();
+                        String d2 = rec.get(3).asString();
                         int userReq = rec.get(4).asInt();
                         boolean compl = rec.get(5).asBoolean();
 
                         ret.add(new WorkingGroup(id, descr, d1, d2, userReq, compl));
-
-                    } catch (ParseException pe) {
-                        System.out.println("There was an error during the parsing of the string");
-                    }
 
                 }
 
@@ -408,7 +396,7 @@ public class Neo4JManager {
                 Map<String, Object> params = new HashMap<>();
                 String query = "CREATE (u:User {"
                         + " username:$username, password:$password, adminLvl:$adminLvl, firstName:$firstName,"
-                        + "lastName:$lastName, matriculationNumber:$matr, email:$email";
+                        + "lastName:$lastName, matriculationNumber:$matr, email:$email})";
 
                 params.put("username", u.getUsername());
                 params.put("password", u.getPassword());
@@ -432,8 +420,8 @@ public class Neo4JManager {
 
                 Map<String, Object> params = new HashMap<>();
                 String query = "CREATE (w:WorkingGroup{"
-                        + "id:$id, description:$description, startDate:$startDate,"
-                        + " deadlineDate:$deadlineDate, usersRequired:$usersRequired, completed:$completed ";
+                        + "id:$id, description:$description, startDate:date($startDate),"
+                        + " deadlineDate:date($deadlineDate), usersRequired:$usersRequired, completed:$completed })";
 
                 params.put("id", wg.getId());
                 params.put("description", wg.getDescription());
@@ -441,13 +429,15 @@ public class Neo4JManager {
                 params.put("deadlineDate", wg.getDeadlineDate());
                 params.put("usersRequired", wg.getUsersRequired());
                 params.put("completed", wg.isCompleted());
-
+                
+                
+                
                 tx.run(query, params);
 
                 String query2 = "MATCH (u:User) WHERE u.username=$username "
                         + "MATCH (w:WorkingGroup) WHERE w.id=$id "
                         + "CREATE (u)-[:LEADER_OF]->(w),"
-                        + "(u)-[:WORKS_IN{since: $startDate, completed: false}]->(w) ";
+                        + "(u)-[:WORKS_IN{since: date($startDate), completed: false}]->(w) ";
 
                 params.clear();
                 params.put("username", user);
@@ -544,7 +534,7 @@ public class Neo4JManager {
                         int userReq = rec.get(11).asInt();
                         boolean compl = rec.get(12).asBoolean();
 
-                        WorkingGroup temp = new WorkingGroup(id, descr, d1, d2, userReq, compl);
+                      //  WorkingGroup temp = new WorkingGroup(id, descr, d1, d2, userReq, compl);
 
                         String usern = rec.get(0).asString();
                         String passw = rec.get(1).asString();
@@ -559,7 +549,7 @@ public class Neo4JManager {
                         if (!user_group.containsKey(u)) {
                             user_group.put(u, new ArrayList<WorkingGroup>());
                         }
-                        user_group.get(u).add(temp);
+                       // user_group.get(u).add(temp);
 
                     } catch (ParseException pe) {
                         System.out.println("There was an error during the parsing of the string");

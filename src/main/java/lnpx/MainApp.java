@@ -1,11 +1,16 @@
 package lnpx;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import static lnpx.Neo4JManager.insertUser;
+import static lnpx.Neo4JManager.insertWorkingGroup;
 
 public class MainApp extends Application {
 
@@ -22,7 +27,11 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
+        //launch(args);
+        Neo4JManager.connectToDB("bolt://localhost:7687","Graph","");
+        Neo4JManager.createTestDB();
+           
+        Neo4JManager.closeDB();
     }
 
 }

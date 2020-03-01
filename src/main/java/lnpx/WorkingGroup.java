@@ -5,12 +5,12 @@ import java.util.Date;
 public class WorkingGroup {
     private int id;
     private String description;
-    private Date startDate;
-    private Date deadlineDate;
+    private String startDate;
+    private String deadlineDate;
     private int usersRequired;
     private boolean completed;
 
-    public WorkingGroup(int id, String description, Date startDate, Date deadlineDate, int usersRequired, boolean completed) {
+    public WorkingGroup(int id, String description, String startDate, String deadlineDate, int usersRequired, boolean completed) {
         this.id = id;
         this.description = description;
         this.startDate = startDate;
@@ -27,11 +27,11 @@ public class WorkingGroup {
         return description;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public Date getDeadlineDate() {
+    public String getDeadlineDate() {
         return deadlineDate;
     }
 
