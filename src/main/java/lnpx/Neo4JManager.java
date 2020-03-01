@@ -3,7 +3,6 @@ package lnpx;
 import java.text.*;
 import java.util.*;
 import java.util.Map.*;
-import java.util.logging.Level;
 import org.neo4j.driver.v1.*;
 
 public class Neo4JManager {
@@ -30,27 +29,69 @@ public class Neo4JManager {
 
     public static void createTestDB() {
 
-        insertUser(new User("dario", "dario", 1, "Dario", "Lorenzoni", 111111, "dario@neo4j.com"));
-        insertUser(new User("raffaele", "raffaele", 1, "Raffaele", "Nocerino", 222222, "raffaele@neo4j.com"));
-        insertUser(new User("marco", "marco", 1, "Marco", "Pettorali", 333333, "marco@neo4j.com"));
-        insertUser(new User("riccardo", "riccardo", 1, "Riccardo", "Xefraj", 444444, "riccardo@neo4j.com"));
-        insertUser(new User("ciro", "ciro", 1, "Ciro", "Immobile", 555555, "ciro@neo4j.com"));
-        insertUser(new User("memphis", "memphis", 1, "Memphis", "Depay", 666666, "memphis@neo4j.com"));
-        insertUser(new User("cristiano", "cristiano", 1, "Cristiano", "Ronaldo", 777777, "cristiano@neo4j.com"));
-        insertUser(new User("timo", "timo", 1, "Timo", "Werner", 888888, "timo@neo4j.com"));
-        insertUser(new User("sergio", "sergio", 1, "Sergio", "Ramos", 999999, "sergio@neo4j.com"));
-        insertUser(new User("paul", "paul", 1, "Paul", "Pogba", 101010, "paul@neo4j.com"));
-        insertUser(new User("romelu", "romelu", 1, "Romelu", "Lukaku", 121212, "romelu@neo4j.com"));
+        insertUser(new User("admin", "admin", 1, "admin", "admin", 999999, "admin@neo4j.com"));
+        insertUser(new User("ciccio", "ciccio", 0, "Ciccio", "Graziano", 131313, "ciccio@neo4j.com"));
+        insertUser(new User("dario", "dario", 0, "Dario", "Lorenzoni", 111111, "dario@neo4j.com"));
+        insertUser(new User("raffaele", "raffaele", 0, "Raffaele", "Nocerino", 222222, "raffaele@neo4j.com"));
+        insertUser(new User("marco", "marco", 0, "Marco", "Pettorali", 333333, "marco@neo4j.com"));
+        insertUser(new User("riccardo", "riccardo", 0, "Riccardo", "Xefraj", 444444, "riccardo@neo4j.com"));
+        insertUser(new User("ciro", "ciro", 0, "Ciro", "Immobile", 555555, "ciro@neo4j.com"));
+        insertUser(new User("memphis", "memphis", 0, "Memphis", "Depay", 666666, "memphis@neo4j.com"));
+        insertUser(new User("cristiano", "cristiano", 0, "Cristiano", "Ronaldo", 777777, "cristiano@neo4j.com"));
+        insertUser(new User("timo", "timo", 0, "Timo", "Werner", 888888, "timo@neo4j.com"));
+        insertUser(new User("sergio", "sergio", 0, "Sergio", "Ramos", 999999, "sergio@neo4j.com"));
+        insertUser(new User("paul", "paul", 0, "Paul", "Pogba", 101010, "paul@neo4j.com"));
+        insertUser(new User("romelu", "romelu", 0, "Romelu", "Lukaku", 121212, "romelu@neo4j.com"));
 
-    
-      
-            insertWorkingGroup(new WorkingGroup(0, "Best squad 4ever", "2020-01-10", "2020-10-01", 11, false), "cristiano");
-            insertWorkingGroup(new WorkingGroup(1, "DB project", "2020-01-10", "2020-10-01", 11, false), "cristiano");
-            insertWorkingGroup(new WorkingGroup(2, "Champions League", "2020-01-10", "2020-10-01", 11, false), "cristiano");
-            insertWorkingGroup(new WorkingGroup(3, "Serie A","2020-01-10", "2020-10-01", 11, false), "cristiano");
-            insertWorkingGroup(new WorkingGroup(4, "Best Friends","2020-01-10", "2020-10-01", 11, false), "cristiano");
+        insertWorkingGroup(new WorkingGroup(0, "Best squad 4ever", "2020-01-10", "2020-10-01", 11, false), "cristiano");
+        insertWorkingGroup(new WorkingGroup(1, "DB project", "2020-01-10", "2020-10-01", 11, false), "ciccio");
+        insertWorkingGroup(new WorkingGroup(2, "Champions League", "2020-01-10", "2020-10-01", 11, false), "cristiano");
+        insertWorkingGroup(new WorkingGroup(3, "Serie A", "2020-01-10", "2020-10-01", 11, false), "ciro");
+        insertWorkingGroup(new WorkingGroup(4, "Best Friends", "2020-01-10", "2020-10-01", 11, false), "memphis");
 
+        insertApplication(new Application("ciccio", "2020-03-03", 0));
+        insertApplication(new Application("ciccio", "2020-03-03", 2));
+        insertApplication(new Application("ciccio", "2020-03-03", 4));
+        insertApplication(new Application("ciccio", "2020-03-05", 3));
+        insertApplication(new Application("ciro", "2020-03-05", 2));
+        insertApplication(new Application("cristiano", "2020-03-07", 3));
+        insertApplication(new Application("dario", "2020-03-01", 3));
+        insertApplication(new Application("marco", "2020-03-02", 2));
+        insertApplication(new Application("marco", "2020-03-05", 4));
+        insertApplication(new Application("marco", "2020-03-06", 1));
+        insertApplication(new Application("marco", "2020-03-06", 3));
+        insertApplication(new Application("memphis", "2020-03-10", 0));
+        insertApplication(new Application("memphis", "2020-03-10", 2));
+        insertApplication(new Application("paul", "2020-03-07", 0));
+        insertApplication(new Application("paul", "2020-03-07", 4));
+        insertApplication(new Application("paul", "2020-03-10", 2));
+        insertApplication(new Application("raffaele", "2020-03-02", 0));
+        insertApplication(new Application("raffaele", "2020-03-03", 3));
+        insertApplication(new Application("raffaele", "2020-03-11", 2));
+        insertApplication(new Application("raffaele", "2020-03-11", 4));
+        insertApplication(new Application("riccardo", "2020-03-03", 4));
+        insertApplication(new Application("sergio", "2020-03-06", 2));
+        insertApplication(new Application("timo", "2020-03-02", 2));
+        insertApplication(new Application("timo", "2020-03-03", 3));
+        insertApplication(new Application("timo", "2020-03-03", 4));
 
+        acceptApplication(new Application("ciccio", "2020-03-03", 0));
+        acceptApplication(new Application("ciccio", "2020-03-03", 2));
+        acceptApplication(new Application("ciccio", "2020-03-04", 4));
+        acceptApplication(new Application("ciccio", "2020-03-05", 3));
+        acceptApplication(new Application("ciro", "2020-03-05", 2));
+        acceptApplication(new Application("cristiano", "2020-03-07", 3));
+        acceptApplication(new Application("dario", "2020-03-01", 3));
+        acceptApplication(new Application("marco", "2020-03-02", 2));
+        acceptApplication(new Application("marco", "2020-03-05", 4));
+        acceptApplication(new Application("marco", "2020-03-06", 3));
+        acceptApplication(new Application("memphis", "2020-03-02", 2));
+        acceptApplication(new Application("memphis", "2020-03-08", 0));
+        acceptApplication(new Application("raffaele", "2020-03-02", 0));
+        acceptApplication(new Application("raffaele", "2020-03-03", 3));
+        acceptApplication(new Application("raffaele", "2020-03-11", 4));
+        acceptApplication(new Application("timo", "2020-03-02", 2));
+        acceptApplication(new Application("timo", "2020-03-03", 4));
     }
 
     public static void insertApplication(Application application) {
@@ -110,7 +151,7 @@ public class Neo4JManager {
                 String query = ""
                         + "MATCH (u:User)-[:WORKS_IN]->(w:WorkingGroup) "
                         + "WHERE w.id = $id "
-                        + "RETURN u.username, u.password, u.adminLvl, u.firstName, u.lastName, u.matriculationName, u.email";
+                        + "RETURN u.username, u.password, u.adminLvl, u.firstName, u.lastName, u.matriculationNum, u.email";
                 Map<String, Object> params = new HashMap<>();
                 params.put("id", workingGroupID);
                 StatementResult sr = tx.run(query, params);
@@ -144,7 +185,7 @@ public class Neo4JManager {
                 String query = ""
                         + "MATCH (u:User)-[:LEADER_OF]->(w:WorkingGroup) "
                         + "WHERE w.id = $id "
-                        + "RETURN u.username, u.password, u.adminLvl, u.firstName, u.lastName, u.matriculationName, u.email";
+                        + "RETURN u.username, u.password, u.adminLvl, u.firstName, u.lastName, u.matriculationNum, u.email";
                 Map<String, Object> params = new HashMap<>();
                 params.put("id", workingGroupID);
                 StatementResult sr = tx.run(query, params);
@@ -218,15 +259,11 @@ public class Neo4JManager {
 
                 while (sr.hasNext()) {
                     Record next = sr.next();
-                    try {
-                        ret.add(new Application(
-                                next.get(0).asString(),
-                                new SimpleDateFormat().parse(next.get(1).asString()),
-                                workingGroupID
-                        ));
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
+                    ret.add(new Application(
+                            next.get(0).asString(),
+                            next.get(1).asString(),
+                            workingGroupID
+                    ));
                 }
                 return 1;
             });
@@ -366,16 +403,15 @@ public class Neo4JManager {
                 StatementResult sr = tx.run(query);
                 if (sr.hasNext()) {
                     Record rec = sr.next();
-                    
 
-                        int id = rec.get(0).asInt();
-                        String descr = rec.get(1).asString();
-                        String d1 = rec.get(2).asString();
-                        String d2 = rec.get(3).asString();
-                        int userReq = rec.get(4).asInt();
-                        boolean compl = rec.get(5).asBoolean();
+                    int id = rec.get(0).asInt();
+                    String descr = rec.get(1).asString();
+                    String d1 = rec.get(2).asString();
+                    String d2 = rec.get(3).asString();
+                    int userReq = rec.get(4).asInt();
+                    boolean compl = rec.get(5).asBoolean();
 
-                        ret.add(new WorkingGroup(id, descr, d1, d2, userReq, compl));
+                    ret.add(new WorkingGroup(id, descr, d1, d2, userReq, compl));
 
                 }
 
@@ -396,7 +432,7 @@ public class Neo4JManager {
                 Map<String, Object> params = new HashMap<>();
                 String query = "CREATE (u:User {"
                         + " username:$username, password:$password, adminLvl:$adminLvl, firstName:$firstName,"
-                        + "lastName:$lastName, matriculationNumber:$matr, email:$email})";
+                        + "lastName:$lastName, matriculationNum:$matr, email:$email})";
 
                 params.put("username", u.getUsername());
                 params.put("password", u.getPassword());
@@ -429,9 +465,7 @@ public class Neo4JManager {
                 params.put("deadlineDate", wg.getDeadlineDate());
                 params.put("usersRequired", wg.getUsersRequired());
                 params.put("completed", wg.isCompleted());
-                
-                
-                
+
                 tx.run(query, params);
 
                 String query2 = "MATCH (u:User) WHERE u.username=$username "
@@ -460,7 +494,7 @@ public class Neo4JManager {
 
                 String query = "MATCH (u:User) "
                         + "RETURN DISTINCT u.username,u.password,u.adminLvl,u.firstName,u.lastName, "
-                        + "u.matriculationNumber, u.email";
+                        + "u.matriculationNum, u.email";
 
                 StatementResult sr = tx.run(query);
 
@@ -506,7 +540,7 @@ public class Neo4JManager {
 
     }
 
-    public static Map<User, Double> loadWorstLeaders() {
+    public static Map<User, Double> loadLeadersRanking() {
 
         try (Session session = driver.session()) {
 
@@ -519,7 +553,7 @@ public class Neo4JManager {
 
                 String query = "MATCH (u:User)-[:LEADER_OF]->(w:WorkingGroup) "
                         + "RETURN DISTINCT u.username,u.password,u.adminLvl,u.firstName,u.lastName, "
-                        + "u.matriculationNumber, u.email "
+                        + "u.matriculationNum, u.email "
                         + ",w.id,w.description,w.startDate,w.deadlineDate,w.usersRequired,w.completed ";
 
                 StatementResult sr = tx.run(query);
@@ -534,8 +568,7 @@ public class Neo4JManager {
                         int userReq = rec.get(11).asInt();
                         boolean compl = rec.get(12).asBoolean();
 
-                      //  WorkingGroup temp = new WorkingGroup(id, descr, d1, d2, userReq, compl);
-
+                        //  WorkingGroup temp = new WorkingGroup(id, descr, d1, d2, userReq, compl);
                         String usern = rec.get(0).asString();
                         String passw = rec.get(1).asString();
                         int adminLvl = rec.get(2).asInt();
@@ -549,7 +582,7 @@ public class Neo4JManager {
                         if (!user_group.containsKey(u)) {
                             user_group.put(u, new ArrayList<WorkingGroup>());
                         }
-                       // user_group.get(u).add(temp);
+                        // user_group.get(u).add(temp);
 
                     } catch (ParseException pe) {
                         System.out.println("There was an error during the parsing of the string");

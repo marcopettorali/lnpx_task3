@@ -5,10 +5,10 @@ import java.util.Date;
 public class Application {
 
     private String username;
-    private Date timestamp;
+    private String timestamp;
     private int workingGroupID;
 
-    public Application(String username, Date timestamp, int workingGroupID) {
+    public Application(String username, String timestamp, int workingGroupID) {
         this.username = username;
         this.timestamp = timestamp;
         this.workingGroupID = workingGroupID;
@@ -18,7 +18,7 @@ public class Application {
         return username;
     }
 
-    public Date getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
