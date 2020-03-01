@@ -32,8 +32,8 @@ public class MainApp extends Application {
         //launch(args);
         Neo4JManager.connectToDB("bolt://localhost:7687","Graph","");
         //Neo4JManager.createTestDB();
-       Map<User,Double> us = Neo4JManager.loadWorstLeaders();
-       System.out.println(us.keySet().iterator().next().getUsername());
+       Map<User,Double> us = Neo4JManager.loadLeadersRanking();
+       System.out.println(us.keySet().iterator().next().getUsername()+" "+us.get(us.keySet().iterator().next()));
         Neo4JManager.closeDB();
     }
 

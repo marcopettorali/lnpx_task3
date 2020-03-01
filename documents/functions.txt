@@ -22,7 +22,7 @@ C- insertWorkingGroup(WorkingGroup)
 R- loadUsers(): List<Users>
 C- insertUser(User): boolean
 D- deleteUser(User): boolean
-G- loadWorstLeaders(): List<Users>
+G- loadLeadersRanking(): List<Users>
 
 -----------------------------------------------------------
 
