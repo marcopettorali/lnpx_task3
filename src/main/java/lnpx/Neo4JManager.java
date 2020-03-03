@@ -47,7 +47,7 @@ public class Neo4JManager {
         insertWorkingGroup(new WorkingGroup(0, "Best squad 4ever", "2020-01-10", "2020-10-01", 11, false), "cristiano");
         insertWorkingGroup(new WorkingGroup(1, "DB project", "2020-01-10", "2020-10-01", 11, false), "ciccio");
         insertWorkingGroup(new WorkingGroup(2, "Champions League", "2020-01-10", "2020-10-01", 11, false), "cristiano");
-        insertWorkingGroup(new WorkingGroup(3, "Serie A", "2020-01-10", "2020-10-01", 11, false), "ciro");
+        insertWorkingGroup(new WorkingGroup(3, "Serie A", "2020-01-10", "2020-10-01", 6, false), "ciro");
         insertWorkingGroup(new WorkingGroup(4, "Best Friends", "2020-01-10", "2020-10-01", 11, false), "memphis");
 
         insertApplication(new Application("ciccio", "2020-03-03", 0));
@@ -302,11 +302,12 @@ public class Neo4JManager {
                 String query2 = ""
                         + "MATCH (u:User) WHERE u.username = $user "
                         + "MATCH (w:WorkingGroup) WHERE w.id = $id "
-                        + "CREATE (u)-[:WORKS_IN{since: $timestamp}]->(w)";
+                        + "CREATE (u)-[:WORKS_IN{since: $timestamp, completed:false}]->(w)";
                 Map<String, Object> params2 = new HashMap<>();
                 params2.put("id", application.getWorkingGroupID());
                 params2.put("user", application.getUsername());
-                params2.put("timestamp", new SimpleDateFormat().format(new Date()));
+                params2.put("timestamp", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+                
                 StatementResult sr2 = tx.run(query2, params2);
                 ret.add(true);
                 return 1;
@@ -554,7 +555,7 @@ public class Neo4JManager {
 
                 String query = "MATCH (u:User)-[:LEADER_OF]->(w:WorkingGroup) "
                         + "RETURN DISTINCT u.username,u.password,u.adminLvl,u.firstName,u.lastName, "
-                        + "u.matriculationNumber, u.email "
+                        + "u.matriculationNum, u.email "
                         + ",w.id,w.description,w.startDate,w.deadlineDate,w.usersRequired,w.completed ";
 
                 StatementResult sr = tx.run(query);
@@ -660,7 +661,7 @@ public class Neo4JManager {
 
                 tx.run(query, params);
                 boolean b = checkCompletedWork(wg);
-
+                
                 if (b) {
 
                     String query2 = "MATCH (w:WorkingGroup) WHERE w.id=$id "
@@ -696,12 +697,16 @@ public class Neo4JManager {
                     Record rec = sr.next();
                     int req = rec.get(0).asInt();
                     int count = rec.get(1).asInt();
-                    if (req == count) {
+           
+                    if (req == count+1) {
                         ret.add(true);
                     } else {
                         ret.add(false);
                     }
+                     
 
+                }else{
+                    ret.add(false);
                 }
                 return 1;
 
