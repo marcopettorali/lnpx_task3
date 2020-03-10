@@ -526,14 +526,38 @@ public class Neo4JManager {
         try (Session session = driver.session()) {
 
             session.writeTransaction((Transaction tx) -> {
-
+                
                 Map<String, Object> param = new HashMap<>();
-                String query = " MATCH (u:User)"
+                
+                String query0 = "MATCH (u:User)-[wi:WORKS_IN]->(w:WorkingGroup)"
+                             + "WHERE u.username=$username "
+                             + "DELETE wi";
+                
+                param.put("username", u.getUsername());
+                StatementResult sr0 = tx.run(query0,param);
+                
+                String query1 = "MATCH (u:User)-[l:LEADER_OF]->(w:WorkingGroup)"
+                             + "WHERE u.username=$username "
+                             + "DELETE l";
+                
+                param.clear();
+                param.put("username", u.getUsername());
+                StatementResult sr1 = tx.run(query1,param);
+                
+                String query2 = "MATCH (u:User)-[a:APPLYED_FOR]->(w:WorkingGroup)"
+                             + "WHERE u.username=$username "
+                             + "DELETE a";
+                
+                param.clear();
+                param.put("username", u.getUsername());
+                StatementResult sr2 = tx.run(query2,param);
+                
+                String query3 = " MATCH (u:User)"
                         + "WHERE u.username=$username "
                         + "DELETE u ";
-
+                param.clear();        
                 param.put("username", u.getUsername());
-                StatementResult sr = tx.run(query, param);
+                StatementResult sr3 = tx.run(query3, param);
                 return 1;
 
             });
