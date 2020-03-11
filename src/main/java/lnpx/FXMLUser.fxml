@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="1170.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane prefHeight="595.0" prefWidth="438.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="My Workng Groups">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="475.0" prefWidth="494.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="7.0" text="Current">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TableView id="TBCurrentJobs" fx:id="currentTable" layoutX="14.0" layoutY="37.0" prefHeight="208.0" prefWidth="410.0" />
+                        <Button id="ButtonCompletedJob" fx:id="markWorkAsCompletedButton" layoutX="136.0" layoutY="258.0" mnemonicParsing="false" text="Mark my work as completed" />
+                        <Label layoutX="10.0" layoutY="295.0" text="Completed">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TableView id="TBCompletedJobs" fx:id="completedTable" layoutX="14.0" layoutY="336.0" prefHeight="190.0" prefWidth="411.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Leaded Working Groups">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button id="ButtonAcceptAplpication" fx:id="acceptApplicationButton" layoutX="139.0" layoutY="518.0" mnemonicParsing="false" text="Accept selected application" />
+                        <TableView id="TBApplicationsForJob" fx:id="applicationsTable" layoutX="15.0" layoutY="298.0" prefHeight="190.0" prefWidth="399.0" />
+                        <Label layoutX="17.0" layoutY="259.0" text="Applications for the selected working group">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TableView id="TBLeader" fx:id="leadedTable" layoutX="16.0" layoutY="43.0" prefHeight="190.0" prefWidth="399.0" />
+                        <Label layoutX="17.0" layoutY="13.0" text="Leaded">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Suggested Working Groups">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="16.0" layoutY="18.0" text="Suggested">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TableView id="TBSuggestedWorkingGroups" fx:id="suggestedTable" layoutX="16.0" layoutY="48.0" prefHeight="470.0" prefWidth="407.0" />
+                        <Button id="ButtonApplicationToGroup" fx:id="sendApplicationButton" layoutX="82.0" layoutY="524.0" mnemonicParsing="false" text="Send application for the selected working group" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Label layoutX="621.0" layoutY="14.0" text="About the selected working group">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="494.0" layoutY="87.0" text="Description" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="493.0" layoutY="144.0" text="Start Date">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="492.0" layoutY="208.0" text="Deadline Date">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="492.0" layoutY="265.0" text="Users">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="492.0" layoutY="324.0" text="Users Required">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="492.0" layoutY="389.0" text="My part of work completed" textOverrun="CLIP">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="descriptionLabel" layoutX="749.0" layoutY="87.0" text="Description of the selected working group will appear here" />
+      <Label fx:id="startDateLabel" layoutX="749.0" layoutY="144.0" text="_ / _ / _" />
+      <Label fx:id="deadlineDateLabel" layoutX="748.0" layoutY="208.0" text="_ / _ / _" />
+      <Label fx:id="usersLabel" layoutX="747.0" layoutY="265.0" text="#" />
+      <Label fx:id="usersRequiredLabel" layoutX="747.0" layoutY="324.0" text="#" />
+      <Label fx:id="completedLabel" layoutX="745.0" layoutY="389.0" text="..." />
+   </children>
+</AnchorPane>

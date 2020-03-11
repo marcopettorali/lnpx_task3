@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane prefHeight="465.0" prefWidth="264.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Users">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView id="TBUsers" fx:id="TBUsers" accessibleText="TBUsers" layoutX="14.0" layoutY="34.0" prefHeight="357.0" prefWidth="240.0" />
+                        <Label layoutX="14.0" layoutY="6.0" text="Users" />
+                        <Button fx:id="ButtonDeleteUser" accessibleText="ButtonDeleteUser" layoutX="93.0" layoutY="397.0" mnemonicParsing="false" text="Delete User" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Sign Up">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="27.0" layoutY="14.0" text="Register user" />
+                        <TextField id="TFFirstName" fx:id="TFFirstName" accessibleText="TFFirstName" layoutX="27.0" layoutY="56.0" />
+                        <TextField id="TFLastName" fx:id="TFLastName" accessibleText="TFLastName" layoutX="27.0" layoutY="98.0" />
+                        <TextField id="TFEmail" fx:id="TFEmail" accessibleText="TFEmail" layoutX="27.0" layoutY="182.0" />
+                        <ChoiceBox id="AdminLevel" fx:id="CBAdminLevel" accessibleText="AdminLevel" layoutX="27.0" layoutY="140.0" prefWidth="150.0" />
+                        <Label layoutX="28.0" layoutY="39.0" text="First Name" />
+                        <Label layoutX="27.0" layoutY="81.0" text="Last Name" />
+                        <Label layoutX="28.0" layoutY="123.0" text="Admin Level" />
+                        <Label layoutX="27.0" layoutY="165.0" text="Email" />
+                        <Button id="ButtonSignUp" fx:id="ButtonSignUp" accessibleText="ButtonSignUp" layoutX="67.0" layoutY="272.0" mnemonicParsing="false" text="Sign Up" />
+                        <Label id="TFOperationEsit" fx:id="LabelOperationEsit" layoutX="20.0" layoutY="316.0" text="Operation Esit" />
+                        <TextField fx:id="TfPassword" layoutX="27.0" layoutY="227.0" />
+                        <Label layoutX="27.0" layoutY="210.0" text="Password" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Ranking">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView id="TBRanking" fx:id="TBRanking" accessibleText="TBRanking" layoutX="14.0" layoutY="22.0" prefHeight="402.0" prefWidth="224.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Button id="ButtonCreateWorkingGroup" fx:id="ButtonCreateWorkingGroup" accessibleText="ButtonCreateWorkingGroup" layoutX="634.0" layoutY="37.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="51.0" text="Create" />
+      <TextField id="TFNumberOfMembers" fx:id="TFDescription" accessibleText="TFNumberOfMembers" layoutX="279.0" layoutY="80.0" prefHeight="25.0" prefWidth="211.0" />
+      <TextField id="TFTeamName" fx:id="TFGroupID" accessibleText="TFTeamName" layoutX="277.0" layoutY="36.0" prefHeight="25.0" prefWidth="103.0" />
+      <Label layoutX="277.0" layoutY="15.0" text="Working Group ID" />
+      <Label layoutX="280.0" layoutY="63.0" text="Description" />
+      <TableView id="TBWorkingGroups" fx:id="TBWorkingGroups" accessibleText="TBWorkingGroups" layoutX="261.0" layoutY="130.0" prefHeight="168.0" prefWidth="431.0" />
+      <Label layoutX="259.0" layoutY="113.0" text="Working Groups" />
+      <TableView id="TBMembers" fx:id="TBMembers" accessibleText="TBMembers" layoutX="261.0" layoutY="315.0" prefHeight="112.0" prefWidth="431.0" />
+      <Label layoutX="261.0" layoutY="298.0" text="Memebers" />
+      <TextField id="TFLeader" fx:id="TFLeader" accessibleText="TFLeader" layoutX="388.0" layoutY="36.0" prefHeight="25.0" prefWidth="103.0" />
+      <Label layoutX="388.0" layoutY="15.0" text="Leader " />
+      <Label fx:id="LabelErrorMsg" layoutX="267.0" layoutY="427.0" text="Error msg" />
+      <TextField fx:id="TFNumbOfUsers" layoutX="495.0" layoutY="36.0" prefHeight="25.0" prefWidth="117.0" />
+      <Label layoutX="495.0" layoutY="15.0" text="Number Of Users" />
+      <Label layoutX="499.0" layoutY="63.0" text="Deadline date" />
+      <DatePicker layoutX="499.0" layoutY="80.0" prefHeight="25.0" prefWidth="117.0" />
+   </children>
+</AnchorPane>
