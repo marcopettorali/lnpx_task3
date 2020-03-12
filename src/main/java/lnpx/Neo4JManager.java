@@ -231,8 +231,8 @@ public class Neo4JManager {
                         ret.add(new WorkingGroup(
                                 next.get(0).asInt(),
                                 next.get(1).asString(),
-                                next.get(2).asString(),
-                                next.get(3).asString(),
+                                next.get(2).asLocalDate().toString(),
+                                next.get(3).asLocalDate().toString(),
                                 next.get(4).asInt(),
                                 next.get(5).asBoolean()
                         ));
@@ -424,19 +424,70 @@ public class Neo4JManager {
         }
 
     }
+    
+    private static int checkIncrementalUsername(User u){
+        
+        try (Session session = driver.session()) {
+            
+            List<String> names = new ArrayList<>();
+            
+            session.readTransaction((Transaction tx) -> {
 
+                Map<String, Object> params = new HashMap<>();
+                
+                String query = "MATCH (u:User) WHERE u.lastName=$lastName "
+                             + "RETURN DISTINCT u.firstName";
+                
+                params.put("lastName",u.getLastName());
+                
+                StatementResult sr = tx.run(query,params);
+                
+                while(sr.hasNext()){
+                    
+                    Record rec = sr.next();
+                    names.add(rec.get(0).asString());
+                }
+        
+                return 1;
+            });
+            
+           char initial_new = u.getFirstName().toLowerCase().charAt(0);
+           int count = 0;
+           
+           for(int i=0; i<names.size();i++){
+           
+               if(initial_new == names.get(i).toLowerCase().charAt(0) ){
+                   count++;
+               }
+           
+           }
+           
+           return count;
+        }
+    }
+    
+    
     public static void insertUser(User u) {
 
         try (Session session = driver.session()) {
-
+            
             session.writeTransaction((Transaction tx) -> {
 
                 Map<String, Object> params = new HashMap<>();
+                
+                int count = checkIncrementalUsername(u);
+                
+                char first = u.getFirstName().toLowerCase().charAt(0);
+                String username = first +"."+u.getLastName().toLowerCase();
+                if(count >= 1){
+                    username = username + count;
+                }
+                
                 String query = "CREATE (u:User {"
                         + " username:$username, password:$password, adminLvl:$adminLvl, firstName:$firstName,"
                         + "lastName:$lastName, matriculationNum:$matr, email:$email})";
-
-                params.put("username", u.getUsername());
+                params.clear();
+                params.put("username", username);
                 params.put("password", u.getPassword());
                 params.put("adminLvl", u.getAdminLvl());
                 params.put("firstName", u.getFirstName());
@@ -451,17 +502,41 @@ public class Neo4JManager {
         }
     }
 
+    private static int checkIdWorkingGroup(){
+        
+        try (Session session = driver.session()) {
+            
+            List<Integer> ret = new ArrayList<>();
+            session.readTransaction((Transaction tx) -> {
+                
+                Map<String, Object> params = new HashMap<>();
+                String query = "MATCH (w:WorkingGroup) RETURN max(w.id)";
+                StatementResult sr = tx.run(query);
+                if(sr.hasNext()){
+                    ret.add(sr.next().get(0).asInt());
+                }
+            return 1;    
+            });
+            return ret.get(0);
+        }
+        
+    }
+            
+    
     public static void insertWorkingGroup(WorkingGroup wg, String user) {
 
         try (Session session = driver.session()) {
             session.writeTransaction((Transaction tx) -> {
-
+                
                 Map<String, Object> params = new HashMap<>();
+                
+                int id = checkIdWorkingGroup() + 1;
+                
                 String query = "CREATE (w:WorkingGroup{"
                         + "id:$id, description:$description, startDate:date($startDate),"
                         + " deadlineDate:date($deadlineDate), usersRequired:$usersRequired, completed:$completed })";
 
-                params.put("id", wg.getId());
+                params.put("id", id);
                 params.put("description", wg.getDescription());
                 params.put("startDate", wg.getStartDate());
                 params.put("deadlineDate", wg.getDeadlineDate());

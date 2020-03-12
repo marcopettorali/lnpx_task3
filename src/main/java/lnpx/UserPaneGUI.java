@@ -329,6 +329,12 @@ public class UserPaneGUI extends AnchorPane {
             if(a!=null)
             {
                 MainApp.acceptApplication(a);
+                WorkingGroup wgSelected= leadedTable.getSelected();
+                System.out.println(wgSelected);
+                if(wgSelected!=null)
+                {
+                         MainApp.loadApplicationsForWorkingGroup(wgSelected);
+                }
             }
         });
         
@@ -338,6 +344,11 @@ public class UserPaneGUI extends AnchorPane {
             if(wg!=null)
             {
                 MainApp.sendApplication(wg);
+                WorkingGroup wgSelected= leadedTable.getSelected();
+                if(wgSelected!=null)
+                {
+                                MainApp.loadApplicationsForWorkingGroup(wg);
+                }
             }
         });
         

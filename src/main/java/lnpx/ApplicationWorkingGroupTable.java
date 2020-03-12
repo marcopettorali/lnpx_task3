@@ -52,4 +52,9 @@ public class ApplicationWorkingGroupTable extends TableView<ApplicationWorkingGr
     public void relaseSelection() {
         this.getSelectionModel().clearSelection();
     }
+    
+    public void clear()
+    {
+        content.clear();
+    }
 }

@@ -120,11 +120,20 @@ public class MainApp extends Application {
     /***************************** USER STAGE *********************************/
     public static void loadUserStage()
     {
+        List<WorkingGroup> completed=new ArrayList<>();
+        List<WorkingGroup> notCompleted=new ArrayList<>();
+        
         userPane=new UserPaneGUI();
-        userPane.addCurrent(Neo4JManager.loadWorkingGroupsForUser(userLogged));
-        //userPane.addCompleted(Neo4JManager.);
+        List<WorkingGroup> wgs=Neo4JManager.loadWorkingGroupsForUser(userLogged);
+        for (WorkingGroup wg : wgs) {
+            if(wg.isCompleted())
+                completed.add(wg);
+            else
+                notCompleted.add(wg);
+        }
+        userPane.addCurrent(notCompleted);
+        userPane.addCompleted(completed);
         userPane.addLeaded(Neo4JManager.loadLeadedWorkingGroups(userLogged));
-        //userPane.addApplications(Neo4JManager.loadApplications());
         //userPane.addSuggested(Neo4JManager.loadSuggestedWorkingGroups(userLogged));
         SignUpStage.close();
         AdminStage.close();
@@ -145,11 +154,25 @@ public class MainApp extends Application {
     }
     
     public static void markWorkAsComplited(WorkingGroup wg){
+        System.out.println("Mark as completed");
         Neo4JManager.markWorkAsCompleted(userLogged, wg);
+        
+        List<WorkingGroup> completed=new ArrayList<>();
+        List<WorkingGroup> notCompleted=new ArrayList<>();
+        List<WorkingGroup> wgs=Neo4JManager.loadWorkingGroupsForUser(userLogged);
+        for (WorkingGroup wgi : wgs) {
+            if(wg.isCompleted())
+                completed.add(wgi);
+            else
+                notCompleted.add(wgi);
+        }
+        userPane.addCurrent(notCompleted);
+        userPane.addCompleted(completed);
     }
     
     public static void acceptApplication(ApplicationWorkingGroup a){
         Neo4JManager.acceptApplication(a);
+        //aggiornare l'interfaccia trammite workingGroupID che non ho
     }
     
     public static void sendApplication(WorkingGroup wg){
@@ -161,10 +184,13 @@ public class MainApp extends Application {
     
     public static void loadApplicationsForWorkingGroup(WorkingGroup wg){
         List<ApplicationWorkingGroup> awg=Neo4JManager.loadApplications(wg.getId());
-        if(awg.size()>0)
-        {
-            userPane.addApplications(awg);
-        }
+        userPane.addApplications(awg);
+        
+    }
+    
+    public static void updateCurrentWorkingGroups()
+    {
+        
     }
     
     /***************************** END USER STAGE *****************************/
