@@ -130,8 +130,8 @@ public class Neo4JManager {
                         ret.add(new WorkingGroup(
                                 next.get(0).asInt(),
                                 next.get(1).asString(),
-                                next.get(2).asString(),
-                                next.get(3).asString(),
+                                next.get(2).asLocalDate().toString(),
+                                next.get(3).asLocalDate().toString(),
                                 next.get(4).asInt(),
                                 next.get(5).asBoolean()
                         ));
