@@ -2,13 +2,13 @@ package lnpx;
 
 import java.util.Date;
 
-public class Application {
+public class ApplicationWorkingGroup {
 
     private String username;
     private String timestamp;
     private int workingGroupID;
 
-    public Application(String username, String timestamp, int workingGroupID) {
+    public ApplicationWorkingGroup(String username, String timestamp, int workingGroupID) {
         this.username = username;
         this.timestamp = timestamp;
         this.workingGroupID = workingGroupID;
