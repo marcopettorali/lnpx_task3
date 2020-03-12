@@ -42,5 +42,9 @@ public class WorkingGroup {
     public boolean isCompleted() {
         return completed;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     
 }

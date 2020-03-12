@@ -44,38 +44,40 @@ public class Neo4JManager {
         insertUser(new User("paul", "paul", 0, "Paul", "Pogba", 101010, "paul@neo4j.com"));
         insertUser(new User("romelu", "romelu", 0, "Romelu", "Lukaku", 121212, "romelu@neo4j.com"));
 
-        insertWorkingGroup(new WorkingGroup(0, "Best squad 4ever", "2020-01-10", "2020-10-01", 11, false), "cristiano");
-        insertWorkingGroup(new WorkingGroup(1, "DB project", "2020-01-10", "2020-10-01", 11, false), "ciccio");
-        insertWorkingGroup(new WorkingGroup(2, "Champions League", "2020-01-10", "2020-10-01", 11, false), "cristiano");
-        insertWorkingGroup(new WorkingGroup(3, "Serie A", "2020-01-10", "2020-10-01", 6, false), "ciro");
-        insertWorkingGroup(new WorkingGroup(4, "Best Friends", "2020-01-10", "2020-10-01", 11, false), "memphis");
+        insertWorkingGroup(new WorkingGroup(0, "Best squad 4ever", "2020-01-10", "2020-10-01", 11, false), "c.ronaldo");
+        insertWorkingGroup(new WorkingGroup(1, "DB project", "2020-01-10", "2020-10-01", 11, false), "c.graziano");
+        insertWorkingGroup(new WorkingGroup(2, "Champions League", "2020-01-10", "2020-10-01", 11, false), "c.ronaldo");
+        insertWorkingGroup(new WorkingGroup(3, "Serie A", "2020-01-10", "2020-10-01", 6, false), "c.immobile");
+        insertWorkingGroup(new WorkingGroup(4, "Best Friends", "2020-01-10", "2020-10-01", 11, false), "m.depay");
 
-        insertApplication(new ApplicationWorkingGroup("ciccio", "2020-03-03", 0));
-        insertApplication(new ApplicationWorkingGroup("ciccio", "2020-03-03", 2));
-        insertApplication(new ApplicationWorkingGroup("ciccio", "2020-03-03", 4));
-        insertApplication(new ApplicationWorkingGroup("ciccio", "2020-03-05", 3));
-        insertApplication(new ApplicationWorkingGroup("ciro", "2020-03-05", 2));
-        insertApplication(new ApplicationWorkingGroup("cristiano", "2020-03-07", 3));
-        insertApplication(new ApplicationWorkingGroup("dario", "2020-03-01", 3));
-        insertApplication(new ApplicationWorkingGroup("marco", "2020-03-02", 2));
-        insertApplication(new ApplicationWorkingGroup("marco", "2020-03-05", 4));
-        insertApplication(new ApplicationWorkingGroup("marco", "2020-03-06", 1));
-        insertApplication(new ApplicationWorkingGroup("marco", "2020-03-06", 3));
-        insertApplication(new ApplicationWorkingGroup("memphis", "2020-03-10", 0));
-        insertApplication(new ApplicationWorkingGroup("memphis", "2020-03-10", 2));
-        insertApplication(new ApplicationWorkingGroup("paul", "2020-03-07", 0));
-        insertApplication(new ApplicationWorkingGroup("paul", "2020-03-07", 4));
-        insertApplication(new ApplicationWorkingGroup("paul", "2020-03-10", 2));
-        insertApplication(new ApplicationWorkingGroup("raffaele", "2020-03-02", 0));
-        insertApplication(new ApplicationWorkingGroup("raffaele", "2020-03-03", 3));
-        insertApplication(new ApplicationWorkingGroup("raffaele", "2020-03-11", 2));
-        insertApplication(new ApplicationWorkingGroup("raffaele", "2020-03-11", 4));
-        insertApplication(new ApplicationWorkingGroup("riccardo", "2020-03-03", 4));
-        insertApplication(new ApplicationWorkingGroup("sergio", "2020-03-06", 2));
-        insertApplication(new ApplicationWorkingGroup("timo", "2020-03-02", 2));
-        insertApplication(new ApplicationWorkingGroup("timo", "2020-03-03", 3));
-        insertApplication(new ApplicationWorkingGroup("timo", "2020-03-03", 4));
+        insertApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-03", 0));
+        insertApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-03", 2));
+        insertApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-03", 4));
+        insertApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-05", 3));
+        insertApplication(new ApplicationWorkingGroup("c.immobile", "2020-03-05", 2));
+        insertApplication(new ApplicationWorkingGroup("c.ronaldo", "2020-03-07", 3));
+        insertApplication(new ApplicationWorkingGroup("d.lorenzoni", "2020-03-01", 3));
+        insertApplication(new ApplicationWorkingGroup("m.pettorali", "2020-03-02", 2));
+        insertApplication(new ApplicationWorkingGroup("m.pettorali", "2020-03-05", 4));
+        insertApplication(new ApplicationWorkingGroup("m.pettorali", "2020-03-06", 1));
+        insertApplication(new ApplicationWorkingGroup("m.pettorali", "2020-03-06", 3));
+        insertApplication(new ApplicationWorkingGroup("m.depay", "2020-03-10", 0));
+        insertApplication(new ApplicationWorkingGroup("m.depay", "2020-03-10", 2));
+        insertApplication(new ApplicationWorkingGroup("p.pogba", "2020-03-07", 0));
+        insertApplication(new ApplicationWorkingGroup("p.pogba", "2020-03-07", 4));
+        insertApplication(new ApplicationWorkingGroup("p.pogba", "2020-03-10", 2));
+        insertApplication(new ApplicationWorkingGroup("r.nocerino", "2020-03-02", 0));
+        insertApplication(new ApplicationWorkingGroup("r.nocerino", "2020-03-03", 3));
+        insertApplication(new ApplicationWorkingGroup("r.nocerino", "2020-03-11", 2));
+        insertApplication(new ApplicationWorkingGroup("r.nocerino", "2020-03-11", 4));
+        insertApplication(new ApplicationWorkingGroup("r.xefraj", "2020-03-03", 4));
+        insertApplication(new ApplicationWorkingGroup("s.ramos", "2020-03-06", 2));
+        insertApplication(new ApplicationWorkingGroup("t.werner", "2020-03-02", 2));
+        insertApplication(new ApplicationWorkingGroup("t.werner", "2020-03-03", 3));
+        insertApplication(new ApplicationWorkingGroup("t.werner", "2020-03-03", 4));
 
+        /*if you un comment this code please correct the usernames observing the function above
+        
         acceptApplication(new ApplicationWorkingGroup("ciccio", "2020-03-03", 0));
         acceptApplication(new ApplicationWorkingGroup("ciccio", "2020-03-03", 2));
         acceptApplication(new ApplicationWorkingGroup("ciccio", "2020-03-04", 4));
@@ -92,7 +94,7 @@ public class Neo4JManager {
         acceptApplication(new ApplicationWorkingGroup("raffaele", "2020-03-03", 3));
         acceptApplication(new ApplicationWorkingGroup("raffaele", "2020-03-11", 4));
         acceptApplication(new ApplicationWorkingGroup("timo", "2020-03-02", 2));
-        acceptApplication(new ApplicationWorkingGroup("timo", "2020-03-03", 4));
+        acceptApplication(new ApplicationWorkingGroup("timo", "2020-03-03", 4));*/
     }
 
     public static void insertApplication(ApplicationWorkingGroup application) {
@@ -117,9 +119,9 @@ public class Neo4JManager {
             List<WorkingGroup> ret = new ArrayList<>();
             session.readTransaction((Transaction tx) -> {
                 String query = ""
-                        + "MATCH (u:User)-[:WORKS_IN]->(w:WorkingGroup) "
+                        + "MATCH (u:User)-[wi:WORKS_IN]->(w:WorkingGroup) "
                         + "WHERE u.username = $name "
-                        + "RETURN w.id, w.description, w.startDate, w.deadlineDate, w.usersRequired, w.completed";
+                        + "RETURN w.id, w.description, w.startDate, w.deadlineDate, w.usersRequired, wi.completed";
                 Map<String, Object> params = new HashMap<>();
                 params.put("name", user);
                 StatementResult sr = tx.run(query, params);
@@ -513,10 +515,16 @@ public class Neo4JManager {
                 String query = "MATCH (w:WorkingGroup) RETURN max(w.id)";
                 StatementResult sr = tx.run(query);
                 if(sr.hasNext()){
-                    ret.add(sr.next().get(0).asInt());
-                }
+                    Record rec = sr.next();
+                    if(rec.get(0).isNull()){
+                        ret.add(0);
+                    }else{
+                    ret.add(rec.get(0).asInt());
+                    }
+                  }
             return 1;    
             });
+            System.out.println(ret.get(0));
             return ret.get(0);
         }
         
@@ -526,17 +534,19 @@ public class Neo4JManager {
     public static void insertWorkingGroup(WorkingGroup wg, String user) {
 
         try (Session session = driver.session()) {
+            
+            
             session.writeTransaction((Transaction tx) -> {
                 
                 Map<String, Object> params = new HashMap<>();
                 
-                int id = checkIdWorkingGroup() + 1;
                 
+               int id = checkIdWorkingGroup() + 1 ;
                 String query = "CREATE (w:WorkingGroup{"
                         + "id:$id, description:$description, startDate:date($startDate),"
                         + " deadlineDate:date($deadlineDate), usersRequired:$usersRequired, completed:$completed })";
 
-                params.put("id", id);
+                params.put("id",id );
                 params.put("description", wg.getDescription());
                 params.put("startDate", wg.getStartDate());
                 params.put("deadlineDate", wg.getDeadlineDate());
@@ -552,14 +562,14 @@ public class Neo4JManager {
 
                 params.clear();
                 params.put("username", user);
-                params.put("id", wg.getId());
+                params.put("id",id);
                 params.put("startDate", wg.getStartDate());
 
                 tx.run(query2, params);
 
                 return 1;
             });
-
+           
         }
     }
 
