@@ -290,27 +290,29 @@ public class UserPaneGUI extends AnchorPane {
     public void setBehaviour()
     {
         currentTable.setOnMouseClicked(e->{
-            MainApp.updateAboutWorkingGroup();
+            WorkingGroup wg=currentTable.getSelected();
+            if(wg!=null)
+                updateAboutWorkingGroup(wg);
         });
         completedTable.setOnMouseClicked(e->{
-            MainApp.updateAboutWorkingGroup();
+            WorkingGroup wg=completedTable.getSelected();
+            if(wg!=null)
+                 updateAboutWorkingGroup(wg);
         });
         
         leadedTable.setOnMouseClicked(e->{
             WorkingGroup wg= leadedTable.getSelected();
             if(wg!=null)
             {
-                MainApp.updateAboutWorkingGroup();
+                updateAboutWorkingGroup(wg);
                 MainApp.loadApplicationsForWorkingGroup(wg);
             }
         });
         
-        applicationsTable.setOnMouseClicked(e->{
-            MainApp.updateAboutWorkingGroup();
-        });
         
+        //this has a double paramter that need to be considered
         suggestedTable.setOnMouseClicked(e->{
-            MainApp.updateAboutWorkingGroup();
+           //updateAboutWorkingGroup(wg);
         });
         
         markWorkAsCompletedButton.setOnMouseClicked(e->{
@@ -330,6 +332,7 @@ public class UserPaneGUI extends AnchorPane {
             }
         });
         
+        // this has a double parameter in suggested we need to check 
         sendApplicationButton.setOnMouseClicked(e->{
             WorkingGroup wg=suggestedTable.getSelected();
             if(wg!=null)
@@ -362,7 +365,17 @@ public class UserPaneGUI extends AnchorPane {
         suggestedTable.setItems(wg);
     }
     
-    
+    public void updateAboutWorkingGroup(WorkingGroup wg)
+    {
+        descriptionLabel.setText(wg.getDescription());
+        startDateLabel.setText(wg.getStartDate());
+        deadlineDateLabel.setText(wg.getDeadlineDate());
+        usersLabel.setText(String.valueOf(Neo4JManager.loadUsersInWorkingGroup(wg.getId()).size()));
+        usersRequiredLabel.setText(String.valueOf(wg.getUsersRequired()));
+        completedLabel.setText(String.valueOf(Neo4JManager.checkCompletedWork(wg)));
+        
+        // need job done or not , gestisci le casistiche 
+    }
     
     
 
