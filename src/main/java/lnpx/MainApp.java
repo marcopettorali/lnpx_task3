@@ -140,7 +140,31 @@ public class MainApp extends Application {
     }
     
     public static void updateAboutWorkingGroup(){
-        
+        //this function should update all the labels in the right
+        //each time an element is selects
+    }
+    
+    public static void markWorkAsComplited(WorkingGroup wg){
+        Neo4JManager.markWorkAsCompleted(userLogged, wg);
+    }
+    
+    public static void acceptApplication(ApplicationWorkingGroup a){
+        Neo4JManager.acceptApplication(a);
+    }
+    
+    public static void sendApplication(WorkingGroup wg){
+        Date d=new Date();
+        ApplicationWorkingGroup a;
+        a = new ApplicationWorkingGroup(userLogged,d.toString(),wg.getId());
+        Neo4JManager.insertApplication(a);
+    }
+    
+    public static void loadApplicationsForWorkingGroup(WorkingGroup wg){
+        List<ApplicationWorkingGroup> awg=Neo4JManager.loadApplications(wg.getId());
+        if(awg.size()>0)
+        {
+            userPane.addApplications(awg);
+        }
     }
     
     /***************************** END USER STAGE *****************************/
