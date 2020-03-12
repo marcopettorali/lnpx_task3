@@ -23,7 +23,7 @@ public class UserPaneGUI extends AnchorPane {
     protected final Tab tab0;
     protected final AnchorPane anchorPane0;
     protected final Button acceptApplicationButton;
-    protected final WorkingGroupTable applicationsTable;
+    protected final ApplicationWorkingGroupTable applicationsTable;
     protected final Label label1;
     protected final WorkingGroupTable leadedTable;
     protected final Label label2;
@@ -59,7 +59,7 @@ public class UserPaneGUI extends AnchorPane {
         tab0 = new Tab();
         anchorPane0 = new AnchorPane();
         acceptApplicationButton = new Button();
-        applicationsTable = new WorkingGroupTable();
+        applicationsTable = new ApplicationWorkingGroupTable();
         label1 = new Label();
         leadedTable = new WorkingGroupTable();
         label2 = new Label();
@@ -297,7 +297,12 @@ public class UserPaneGUI extends AnchorPane {
         });
         
         leadedTable.setOnMouseClicked(e->{
-            MainApp.updateAboutWorkingGroup();
+            WorkingGroup wg= leadedTable.getSelected();
+            if(wg!=null)
+            {
+                MainApp.updateAboutWorkingGroup();
+                MainApp.loadApplicationsForWorkingGroup(wg);
+            }
         });
         
         applicationsTable.setOnMouseClicked(e->{
@@ -306,6 +311,31 @@ public class UserPaneGUI extends AnchorPane {
         
         suggestedTable.setOnMouseClicked(e->{
             MainApp.updateAboutWorkingGroup();
+        });
+        
+        markWorkAsCompletedButton.setOnMouseClicked(e->{
+            //obtain from the table the working group
+            WorkingGroup wg= currentTable.getSelected();
+            if(wg!=null)
+                MainApp.markWorkAsComplited(wg);
+        });
+        
+        acceptApplicationButton.setOnMouseClicked(e->{
+            //Manca la funzione che restituisce dal workingGroup ID il
+            //Working group
+            ApplicationWorkingGroup a=applicationsTable.getSelected();
+            if(a!=null)
+            {
+                MainApp.acceptApplication(a);
+            }
+        });
+        
+        sendApplicationButton.setOnMouseClicked(e->{
+            WorkingGroup wg=suggestedTable.getSelected();
+            if(wg!=null)
+            {
+                MainApp.sendApplication(wg);
+            }
         });
         
         //mettere anche i button
@@ -324,8 +354,8 @@ public class UserPaneGUI extends AnchorPane {
         leadedTable.setItems(wg);
     }
     
-    public void addApplications(List<WorkingGroup> wg){
-        applicationsTable.setItems(wg);
+    public void addApplications(List<ApplicationWorkingGroup> awg){
+        applicationsTable.setItems(awg);
     }
     
     public void addSuggested(List<WorkingGroup> wg){
