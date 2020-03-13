@@ -30,7 +30,7 @@ public class UserPaneGUI extends AnchorPane {
     protected final Tab tab1;
     protected final AnchorPane anchorPane1;
     protected final Label label3;
-    protected final WorkingGroupTable suggestedTable;
+    protected final SuggestedWorkingGroupTable suggestedTable;
     protected final Button sendApplicationButton;
     protected final Label label4;
     protected final Label label5;
@@ -66,7 +66,7 @@ public class UserPaneGUI extends AnchorPane {
         tab1 = new Tab();
         anchorPane1 = new AnchorPane();
         label3 = new Label();
-        suggestedTable = new WorkingGroupTable();
+        suggestedTable = new SuggestedWorkingGroupTable();
         sendApplicationButton = new Button();
         label4 = new Label();
         label5 = new Label();
@@ -223,7 +223,7 @@ public class UserPaneGUI extends AnchorPane {
 
         label10.setLayoutX(492.0);
         label10.setLayoutY(389.0);
-        label10.setText("My part of work completed");
+        label10.setText("All members finished the work");
         label10.setTextOverrun(javafx.scene.control.OverrunStyle.CLIP);
         label10.setFont(new Font("System Bold", 12.0));
 
@@ -319,7 +319,10 @@ public class UserPaneGUI extends AnchorPane {
             //obtain from the table the working group
             WorkingGroup wg= currentTable.getSelected();
             if(wg!=null)
+            {
                 MainApp.markWorkAsComplited(wg);
+                updateAboutWorkingGroup(wg);
+            }
         });
         
         acceptApplicationButton.setOnMouseClicked(e->{
@@ -334,23 +337,26 @@ public class UserPaneGUI extends AnchorPane {
                 if(wgSelected!=null)
                 {
                          MainApp.loadApplicationsForWorkingGroup(wgSelected);
+                         updateAboutWorkingGroup(wgSelected);
                 }
             }
         });
         
         // this has a double parameter in suggested we need to check 
-        sendApplicationButton.setOnMouseClicked(e->{
-            WorkingGroup wg=suggestedTable.getSelected();
-            if(wg!=null)
+       sendApplicationButton.setOnMouseClicked(e->{
+            SuggestedWorkingGroups swg=suggestedTable.getSelected();
+            if(swg!=null)
             {
-                MainApp.sendApplication(wg);
+                int wgId=swg.getWorkingGroupID();
+                MainApp.sendApplication(wgId);
                 WorkingGroup wgSelected= leadedTable.getSelected();
                 if(wgSelected!=null)
                 {
-                                MainApp.loadApplicationsForWorkingGroup(wg);
+                                MainApp.loadApplicationsForWorkingGroup(wgSelected);
                 }
             }
         });
+                
         
         //mettere anche i button
         
@@ -372,8 +378,8 @@ public class UserPaneGUI extends AnchorPane {
         applicationsTable.setItems(awg);
     }
     
-    public void addSuggested(List<WorkingGroup> wg){
-        suggestedTable.setItems(wg);
+    public void addSuggested(List<SuggestedWorkingGroups> swg){
+        suggestedTable.setItems(swg);
     }
     
     public void updateAboutWorkingGroup(WorkingGroup wg)

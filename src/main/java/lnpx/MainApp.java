@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -134,6 +136,16 @@ public class MainApp extends Application {
         userPane.addCurrent(notCompleted);
         userPane.addCompleted(completed);
         userPane.addLeaded(Neo4JManager.loadLeadedWorkingGroups(userLogged));
+        
+        List<SuggestedWorkingGroups> swg=new ArrayList<>();
+        Map<WorkingGroup,Double> wgDouble=Neo4JManager.loadSuggestedWorkingGroups(userLogged);
+        for(Map.Entry<WorkingGroup,Double> entry: wgDouble.entrySet())
+        {
+            swg.add(new SuggestedWorkingGroups(entry.getKey().getId(),entry.getValue()));
+        }
+        userPane.addSuggested(swg);
+        
+        
         //userPane.addSuggested(Neo4JManager.loadSuggestedWorkingGroups(userLogged));
         SignUpStage.close();
         AdminStage.close();
@@ -156,18 +168,19 @@ public class MainApp extends Application {
     public static void markWorkAsComplited(WorkingGroup wg){
         System.out.println("Mark as completed");
         Neo4JManager.markWorkAsCompleted(userLogged, wg);
-        
         List<WorkingGroup> completed=new ArrayList<>();
         List<WorkingGroup> notCompleted=new ArrayList<>();
         List<WorkingGroup> wgs=Neo4JManager.loadWorkingGroupsForUser(userLogged);
         for (WorkingGroup wgi : wgs) {
-            if(wg.isCompleted())
+            if(wgi.isCompleted())
                 completed.add(wgi);
             else
                 notCompleted.add(wgi);
         }
         userPane.addCurrent(notCompleted);
         userPane.addCompleted(completed);
+        //to be sure to check if all the members ended their job
+        userPane.addLeaded(Neo4JManager.loadLeadedWorkingGroups(userLogged));
     }
     
     public static void acceptApplication(ApplicationWorkingGroup a){
@@ -175,10 +188,10 @@ public class MainApp extends Application {
         //aggiornare l'interfaccia trammite workingGroupID che non ho
     }
     
-    public static void sendApplication(WorkingGroup wg){
+    public static void sendApplication(int wg){
         Date d=new Date();
         ApplicationWorkingGroup a;
-        a = new ApplicationWorkingGroup(userLogged,d.toString(),wg.getId());
+        a = new ApplicationWorkingGroup(userLogged,d.toString(),wg);
         Neo4JManager.insertApplication(a);
     }
     

@@ -31,70 +31,70 @@ public class Neo4JManager {
     public static void createTestDB() {
 
         insertUser(new User("admin", "admin", 1, "admin", "admin", 999999, "admin@neo4j.com"));
-        insertUser(new User("ciccio", "ciccio", 0, "Ciccio", "Graziano", 131313, "ciccio@neo4j.com"));
-        insertUser(new User("dario", "dario", 0, "Dario", "Lorenzoni", 111111, "dario@neo4j.com"));
-        insertUser(new User("raffaele", "raffaele", 0, "Raffaele", "Nocerino", 222222, "raffaele@neo4j.com"));
-        insertUser(new User("marco", "marco", 0, "Marco", "Pettorali", 333333, "marco@neo4j.com"));
-        insertUser(new User("riccardo", "riccardo", 0, "Riccardo", "Xefraj", 444444, "riccardo@neo4j.com"));
-        insertUser(new User("ciro", "ciro", 0, "Ciro", "Immobile", 555555, "ciro@neo4j.com"));
-        insertUser(new User("memphis", "memphis", 0, "Memphis", "Depay", 666666, "memphis@neo4j.com"));
-        insertUser(new User("cristiano", "cristiano", 0, "Cristiano", "Ronaldo", 777777, "cristiano@neo4j.com"));
-        insertUser(new User("timo", "timo", 0, "Timo", "Werner", 888888, "timo@neo4j.com"));
-        insertUser(new User("sergio", "sergio", 0, "Sergio", "Ramos", 999999, "sergio@neo4j.com"));
-        insertUser(new User("paul", "paul", 0, "Paul", "Pogba", 101010, "paul@neo4j.com"));
-        insertUser(new User("romelu", "romelu", 0, "Romelu", "Lukaku", 121212, "romelu@neo4j.com"));
+        insertUser(new User("ciccio", "c.graziano", 0, "Ciccio", "Graziano", 131313, "ciccio@neo4j.com"));
+        insertUser(new User("dario", "d.lorenzoni", 0, "Dario", "Lorenzoni", 111111, "dario@neo4j.com"));
+        insertUser(new User("raffaele", "r.nocerino", 0, "Raffaele", "Nocerino", 222222, "raffaele@neo4j.com"));
+        insertUser(new User("marco", "m.pettorali", 0, "Marco", "Pettorali", 333333, "marco@neo4j.com"));
+        insertUser(new User("riccardo", "r.xefraj", 0, "Riccardo", "Xefraj", 444444, "riccardo@neo4j.com"));
+        insertUser(new User("ciro", "c.immobile", 0, "Ciro", "Immobile", 555555, "ciro@neo4j.com"));
+        insertUser(new User("memphis", "m.depay", 0, "Memphis", "Depay", 666666, "memphis@neo4j.com"));
+        insertUser(new User("cristiano", "c.ronaldo", 0, "Cristiano", "Ronaldo", 777777, "cristiano@neo4j.com"));
+        insertUser(new User("timo", "t.warner", 0, "Timo", "Werner", 888888, "timo@neo4j.com"));
+        insertUser(new User("sergio", "s.ramos", 0, "Sergio", "Ramos", 999999, "sergio@neo4j.com"));
+        insertUser(new User("paul", "p.pogba", 0, "Paul", "Pogba", 101010, "paul@neo4j.com"));
+        insertUser(new User("romelu", "r.lukaku", 0, "Romelu", "Lukaku", 121212, "romelu@neo4j.com"));
 
-        insertWorkingGroup(new WorkingGroup(0, "Best squad 4ever", "2020-01-10", "2020-10-01", 11, false), "c.ronaldo");
-        insertWorkingGroup(new WorkingGroup(1, "DB project", "2020-01-10", "2020-10-01", 11, false), "c.graziano");
-        insertWorkingGroup(new WorkingGroup(2, "Champions League", "2020-01-10", "2020-10-01", 11, false), "c.ronaldo");
-        insertWorkingGroup(new WorkingGroup(3, "Serie A", "2020-01-10", "2020-10-01", 6, false), "c.immobile");
-        insertWorkingGroup(new WorkingGroup(4, "Best Friends", "2020-01-10", "2020-10-01", 11, false), "m.depay");
+        insertWorkingGroup(new WorkingGroup(1, "Best squad 4ever", "2020-01-10", "2020-10-01", 11, false), "c.ronaldo");
+        insertWorkingGroup(new WorkingGroup(2, "DB project", "2020-01-10", "2020-10-01", 11, false), "c.graziano");
+        insertWorkingGroup(new WorkingGroup(3, "Champions League", "2020-01-10", "2020-10-01", 11, false), "c.ronaldo");
+        insertWorkingGroup(new WorkingGroup(4, "Serie A", "2020-01-10", "2020-10-01", 6, false), "c.immobile");
+        insertWorkingGroup(new WorkingGroup(5, "Best Friends", "2020-01-10", "2020-10-01", 11, false), "m.depay");
 
-        insertApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-03", 0));
-        insertApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-03", 2));
-        insertApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-03", 4));
-        insertApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-05", 3));
-        insertApplication(new ApplicationWorkingGroup("c.immobile", "2020-03-05", 2));
-        insertApplication(new ApplicationWorkingGroup("c.ronaldo", "2020-03-07", 3));
-        insertApplication(new ApplicationWorkingGroup("d.lorenzoni", "2020-03-01", 3));
-        insertApplication(new ApplicationWorkingGroup("m.pettorali", "2020-03-02", 2));
-        insertApplication(new ApplicationWorkingGroup("m.pettorali", "2020-03-05", 4));
-        insertApplication(new ApplicationWorkingGroup("m.pettorali", "2020-03-06", 1));
-        insertApplication(new ApplicationWorkingGroup("m.pettorali", "2020-03-06", 3));
-        insertApplication(new ApplicationWorkingGroup("m.depay", "2020-03-10", 0));
-        insertApplication(new ApplicationWorkingGroup("m.depay", "2020-03-10", 2));
-        insertApplication(new ApplicationWorkingGroup("p.pogba", "2020-03-07", 0));
-        insertApplication(new ApplicationWorkingGroup("p.pogba", "2020-03-07", 4));
-        insertApplication(new ApplicationWorkingGroup("p.pogba", "2020-03-10", 2));
-        insertApplication(new ApplicationWorkingGroup("r.nocerino", "2020-03-02", 0));
-        insertApplication(new ApplicationWorkingGroup("r.nocerino", "2020-03-03", 3));
-        insertApplication(new ApplicationWorkingGroup("r.nocerino", "2020-03-11", 2));
-        insertApplication(new ApplicationWorkingGroup("r.nocerino", "2020-03-11", 4));
-        insertApplication(new ApplicationWorkingGroup("r.xefraj", "2020-03-03", 4));
-        insertApplication(new ApplicationWorkingGroup("s.ramos", "2020-03-06", 2));
-        insertApplication(new ApplicationWorkingGroup("t.werner", "2020-03-02", 2));
-        insertApplication(new ApplicationWorkingGroup("t.werner", "2020-03-03", 3));
+        insertApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-03", 1));
+        insertApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-03", 3));
+        insertApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-03", 5));
+        insertApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-05", 4));
+        insertApplication(new ApplicationWorkingGroup("c.immobile", "2020-03-05", 3));
+        insertApplication(new ApplicationWorkingGroup("c.ronaldo", "2020-03-07", 4));
+        insertApplication(new ApplicationWorkingGroup("d.lorenzoni", "2020-03-01", 4));
+        insertApplication(new ApplicationWorkingGroup("m.pettorali", "2020-03-02", 3));
+        insertApplication(new ApplicationWorkingGroup("m.pettorali", "2020-03-05", 5));
+        insertApplication(new ApplicationWorkingGroup("m.pettorali", "2020-03-06", 2));
+        insertApplication(new ApplicationWorkingGroup("m.pettorali", "2020-03-06", 4));
+        insertApplication(new ApplicationWorkingGroup("m.depay", "2020-03-10", 1));
+        insertApplication(new ApplicationWorkingGroup("m.depay", "2020-03-10", 3));
+        insertApplication(new ApplicationWorkingGroup("p.pogba", "2020-03-07", 1));
+        insertApplication(new ApplicationWorkingGroup("p.pogba", "2020-03-07", 5));
+        insertApplication(new ApplicationWorkingGroup("p.pogba", "2020-03-10", 3));
+        insertApplication(new ApplicationWorkingGroup("r.nocerino", "2020-03-02", 1));
+        insertApplication(new ApplicationWorkingGroup("r.nocerino", "2020-03-03", 4));
+        insertApplication(new ApplicationWorkingGroup("r.nocerino", "2020-03-11", 3));
+        insertApplication(new ApplicationWorkingGroup("r.nocerino", "2020-03-11", 5));
+        insertApplication(new ApplicationWorkingGroup("r.xefraj", "2020-03-03", 5));
+        insertApplication(new ApplicationWorkingGroup("s.ramos", "2020-03-06", 3));
+        insertApplication(new ApplicationWorkingGroup("t.werner", "2020-03-02", 3));
         insertApplication(new ApplicationWorkingGroup("t.werner", "2020-03-03", 4));
+        insertApplication(new ApplicationWorkingGroup("t.werner", "2020-03-03", 5));
 
-        /*if you un comment this code please correct the usernames observing the function above
+        //if you un comment this code please correct the usernames observing the function above
         
-        acceptApplication(new ApplicationWorkingGroup("ciccio", "2020-03-03", 0));
-        acceptApplication(new ApplicationWorkingGroup("ciccio", "2020-03-03", 2));
-        acceptApplication(new ApplicationWorkingGroup("ciccio", "2020-03-04", 4));
-        acceptApplication(new ApplicationWorkingGroup("ciccio", "2020-03-05", 3));
-        acceptApplication(new ApplicationWorkingGroup("ciro", "2020-03-05", 2));
-        acceptApplication(new ApplicationWorkingGroup("cristiano", "2020-03-07", 3));
-        acceptApplication(new ApplicationWorkingGroup("dario", "2020-03-01", 3));
-        acceptApplication(new ApplicationWorkingGroup("marco", "2020-03-02", 2));
-        acceptApplication(new ApplicationWorkingGroup("marco", "2020-03-05", 4));
-        acceptApplication(new ApplicationWorkingGroup("marco", "2020-03-06", 3));
-        acceptApplication(new ApplicationWorkingGroup("memphis", "2020-03-02", 2));
-        acceptApplication(new ApplicationWorkingGroup("memphis", "2020-03-08", 0));
-        acceptApplication(new ApplicationWorkingGroup("raffaele", "2020-03-02", 0));
-        acceptApplication(new ApplicationWorkingGroup("raffaele", "2020-03-03", 3));
-        acceptApplication(new ApplicationWorkingGroup("raffaele", "2020-03-11", 4));
-        acceptApplication(new ApplicationWorkingGroup("timo", "2020-03-02", 2));
-        acceptApplication(new ApplicationWorkingGroup("timo", "2020-03-03", 4));*/
+        /*acceptApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-03", 1));
+        acceptApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-03", 3));
+        acceptApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-04", 5));
+        acceptApplication(new ApplicationWorkingGroup("c.graziano", "2020-03-05", 4));
+        acceptApplication(new ApplicationWorkingGroup("c.immobile", "2020-03-05", 5));
+        acceptApplication(new ApplicationWorkingGroup("c.ronaldo", "2020-03-07", 4));
+        acceptApplication(new ApplicationWorkingGroup("d.lorenzoni", "2020-03-01", 4));
+        acceptApplication(new ApplicationWorkingGroup("m.pettorali", "2020-03-02", 3));
+        acceptApplication(new ApplicationWorkingGroup("m.pettorali", "2020-03-05", 5));
+        acceptApplication(new ApplicationWorkingGroup("m.pettorali", "2020-03-06", 4));
+        acceptApplication(new ApplicationWorkingGroup("m.depay", "2020-03-02", 3));
+        acceptApplication(new ApplicationWorkingGroup("m.depay", "2020-03-08", 1));
+        acceptApplication(new ApplicationWorkingGroup("r.nocerino", "2020-03-02", 1));
+        acceptApplication(new ApplicationWorkingGroup("r.nocerino", "2020-03-03", 4));
+        acceptApplication(new ApplicationWorkingGroup("r.nocerino", "2020-03-11", 5));
+        acceptApplication(new ApplicationWorkingGroup("t.warner", "2020-03-02", 3));
+        acceptApplication(new ApplicationWorkingGroup("t.warner", "2020-03-03", 5));*/
     }
 
     public static void insertApplication(ApplicationWorkingGroup application) {
