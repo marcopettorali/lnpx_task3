@@ -312,7 +312,7 @@ public class UserPaneGUI extends AnchorPane {
         
         //this has a double paramter that need to be considered
         suggestedTable.setOnMouseClicked(e->{
-           //updateAboutWorkingGroup(wg);
+                //no info of this group are provvided
         });
         
         markWorkAsCompletedButton.setOnMouseClicked(e->{

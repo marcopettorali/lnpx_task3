@@ -7,16 +7,14 @@ public class User {
     private int adminLvl;
     private String firstName;
     private String lastName;
-    private int matriculationNum;
     private String email;
 
-    public User(String username, String password, int adminLvl, String firstName, String lastName, int matriculationNum, String email) {
+    public User(String username, String password, int adminLvl, String firstName, String lastName, String email) {
         this.username = username;
         this.password = password;
         this.adminLvl = adminLvl;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.matriculationNum = matriculationNum;
         this.email = email;
     }
 
@@ -38,10 +36,6 @@ public class User {
 
     public String getLastName() {
         return lastName;
-    }
-
-    public int getMatriculationNum() {
-        return matriculationNum;
     }
 
     public String getEmail() {

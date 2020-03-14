@@ -36,14 +36,12 @@ public class UserOverviewTable extends TableView<User> {
         TableColumn TClastName=new TableColumn("LastName");
         TClastName.setCellValueFactory(new PropertyValueFactory<>("LastName"));
         
-        TableColumn TCMatNumber=new TableColumn("MatriculationNum");
-        TCMatNumber.setCellValueFactory(new PropertyValueFactory<>("MatriculationNum"));
         
         TableColumn TCemail=new TableColumn("Email");
         TCemail.setCellValueFactory(new PropertyValueFactory<>("Email"));
         
         
-        this.getColumns().addAll(TCUserID,TCMatNumber,TCadminStatus,TCemail,TCFirstName,TClastName);
+        this.getColumns().addAll(TCUserID,TCadminStatus,TCemail,TCFirstName,TClastName);
         this.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
     }

@@ -12,6 +12,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 
 public class AdminPaneGUI extends AnchorPane {
 
@@ -41,20 +42,21 @@ public class AdminPaneGUI extends AnchorPane {
     protected final RankingTable TBRanking;
     protected final Button ButtonCreateWorkingGroup;
     protected final TextField TFDescription;
-    protected final TextField TFGroupID;
     protected final Label label6;
-    protected final Label label7;
     protected final WorkingGroupTable TBWorkingGroups;
-    protected final Label label8;
+    protected final Label label7;
     protected final UserOverviewTable TBMembers;
-    protected final Label label9;
+    protected final Label label8;
     protected final TextField TFLeader;
-    protected final Label label10;
+    protected final Label label9;
     protected final Label LabelErrorMsg;
     protected final TextField TFNumbOfUsers;
+    protected final Label label10;
     protected final Label label11;
-    protected final Label label12;
     protected final DatePicker datePicker;
+    protected final Label label12;
+    protected final Label label13;
+    protected final Label label14;
 
     public AdminPaneGUI() {
 
@@ -84,53 +86,54 @@ public class AdminPaneGUI extends AnchorPane {
         TBRanking = new RankingTable();
         ButtonCreateWorkingGroup = new Button();
         TFDescription = new TextField();
-        TFGroupID = new TextField();
         label6 = new Label();
-        label7 = new Label();
         TBWorkingGroups = new WorkingGroupTable();
-        label8 = new Label();
+        label7 = new Label();
         TBMembers = new UserOverviewTable();
-        label9 = new Label();
+        label8 = new Label();
         TFLeader = new TextField();
-        label10 = new Label();
+        label9 = new Label();
         LabelErrorMsg = new Label();
         TFNumbOfUsers = new TextField();
+        label10 = new Label();
         label11 = new Label();
-        label12 = new Label();
         datePicker = new DatePicker();
+        label12 = new Label();
+        label13 = new Label();
+        label14 = new Label();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
         setMinWidth(USE_PREF_SIZE);
-        setPrefHeight(465.0);
-        setPrefWidth(706.0);
+        setPrefHeight(566.0);
+        setPrefWidth(967.0);
 
-        tabPane.setPrefHeight(465.0);
-        tabPane.setPrefWidth(264.0);
+        tabPane.setPrefHeight(566.0);
+        tabPane.setPrefWidth(327.0);
         tabPane.setTabClosingPolicy(javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE);
 
         tab.setText("Users");
 
         anchorPane.setMinHeight(0.0);
         anchorPane.setMinWidth(0.0);
-        anchorPane.setPrefHeight(180.0);
-        anchorPane.setPrefWidth(200.0);
+        anchorPane.setPrefHeight(544.0);
+        anchorPane.setPrefWidth(327.0);
 
         TBUsers.setAccessibleText("TBUsers");
         TBUsers.setId("TBUsers");
         TBUsers.setLayoutX(14.0);
         TBUsers.setLayoutY(34.0);
-        TBUsers.setPrefHeight(357.0);
-        TBUsers.setPrefWidth(240.0);
+        TBUsers.setPrefHeight(441.0);
+        TBUsers.setPrefWidth(302.0);
 
         label.setLayoutX(14.0);
         label.setLayoutY(6.0);
         label.setText("Users");
 
         ButtonDeleteUser.setAccessibleText("ButtonDeleteUser");
-        ButtonDeleteUser.setLayoutX(93.0);
-        ButtonDeleteUser.setLayoutY(397.0);
+        ButtonDeleteUser.setLayoutX(126.0);
+        ButtonDeleteUser.setLayoutY(490.0);
         ButtonDeleteUser.setMnemonicParsing(false);
         ButtonDeleteUser.setText("Delete User");
         tab.setContent(anchorPane);
@@ -149,58 +152,67 @@ public class AdminPaneGUI extends AnchorPane {
         TFFirstName.setAccessibleText("TFFirstName");
         TFFirstName.setId("TFFirstName");
         TFFirstName.setLayoutX(27.0);
-        TFFirstName.setLayoutY(56.0);
+        TFFirstName.setLayoutY(57.0);
+        TFFirstName.setPrefHeight(25.0);
+        TFFirstName.setPrefWidth(233.0);
 
         TFLastName.setAccessibleText("TFLastName");
         TFLastName.setId("TFLastName");
         TFLastName.setLayoutX(27.0);
-        TFLastName.setLayoutY(98.0);
+        TFLastName.setLayoutY(107.0);
+        TFLastName.setPrefHeight(25.0);
+        TFLastName.setPrefWidth(233.0);
 
         TFEmail.setAccessibleText("TFEmail");
         TFEmail.setId("TFEmail");
         TFEmail.setLayoutX(27.0);
-        TFEmail.setLayoutY(182.0);
+        TFEmail.setLayoutY(212.0);
+        TFEmail.setPrefHeight(25.0);
+        TFEmail.setPrefWidth(233.0);
 
         CBAdminLevel.getItems().addAll(0,1);
         CBAdminLevel.setAccessibleText("AdminLevel");
         CBAdminLevel.setId("AdminLevel");
         CBAdminLevel.setLayoutX(27.0);
-        CBAdminLevel.setLayoutY(140.0);
-        CBAdminLevel.setPrefWidth(150.0);
+        CBAdminLevel.setLayoutY(159.0);
+        CBAdminLevel.setPrefHeight(25.0);
+        CBAdminLevel.setPrefWidth(233.0);
 
         label1.setLayoutX(28.0);
         label1.setLayoutY(39.0);
         label1.setText("First Name");
 
         label2.setLayoutX(27.0);
-        label2.setLayoutY(81.0);
+        label2.setLayoutY(90.0);
         label2.setText("Last Name");
 
         label3.setLayoutX(28.0);
-        label3.setLayoutY(123.0);
+        label3.setLayoutY(143.0);
         label3.setText("Admin Level");
 
         label4.setLayoutX(27.0);
-        label4.setLayoutY(165.0);
+        label4.setLayoutY(196.0);
         label4.setText("Email");
 
         ButtonSignUp.setAccessibleText("ButtonSignUp");
         ButtonSignUp.setId("ButtonSignUp");
-        ButtonSignUp.setLayoutX(67.0);
-        ButtonSignUp.setLayoutY(272.0);
+        ButtonSignUp.setLayoutX(115.0);
+        ButtonSignUp.setLayoutY(326.0);
         ButtonSignUp.setMnemonicParsing(false);
         ButtonSignUp.setText("Sign Up");
 
         LabelOperationEsit.setId("TFOperationEsit");
         LabelOperationEsit.setLayoutX(20.0);
-        LabelOperationEsit.setLayoutY(316.0);
-        LabelOperationEsit.setText("");
+        LabelOperationEsit.setLayoutY(360.0);
+        LabelOperationEsit.setText("Operation Esit");
 
         TFPassword.setLayoutX(27.0);
-        TFPassword.setLayoutY(227.0);
+        TFPassword.setLayoutY(272.0);
+        TFPassword.setPrefHeight(25.0);
+        TFPassword.setPrefWidth(233.0);
 
         label5.setLayoutX(27.0);
-        label5.setLayoutY(210.0);
+        label5.setLayoutY(255.0);
         label5.setText("Password");
         tab0.setContent(anchorPane0);
 
@@ -215,96 +227,107 @@ public class AdminPaneGUI extends AnchorPane {
         TBRanking.setId("TBRanking");
         TBRanking.setLayoutX(14.0);
         TBRanking.setLayoutY(22.0);
-        TBRanking.setPrefHeight(402.0);
-        TBRanking.setPrefWidth(224.0);
+        TBRanking.setPrefHeight(495.0);
+        TBRanking.setPrefWidth(291.0);
         tab1.setContent(anchorPane1);
 
         ButtonCreateWorkingGroup.setAccessibleText("ButtonCreateWorkingGroup");
         ButtonCreateWorkingGroup.setId("ButtonCreateWorkingGroup");
-        ButtonCreateWorkingGroup.setLayoutX(634.0);
-        ButtonCreateWorkingGroup.setLayoutY(37.0);
+        ButtonCreateWorkingGroup.setLayoutX(875.0);
+        ButtonCreateWorkingGroup.setLayoutY(36.0);
         ButtonCreateWorkingGroup.setMnemonicParsing(false);
-        ButtonCreateWorkingGroup.setPrefHeight(68.0);
-        ButtonCreateWorkingGroup.setPrefWidth(51.0);
+        ButtonCreateWorkingGroup.setPrefHeight(67.0);
+        ButtonCreateWorkingGroup.setPrefWidth(74.0);
         ButtonCreateWorkingGroup.setText("Create");
 
         TFDescription.setAccessibleText("TFNumberOfMembers");
         TFDescription.setId("TFNumberOfMembers");
-        TFDescription.setLayoutX(279.0);
-        TFDescription.setLayoutY(80.0);
-        TFDescription.setPrefHeight(25.0);
-        TFDescription.setPrefWidth(211.0);
+        TFDescription.setLayoutX(406.0);
+        TFDescription.setLayoutY(36.0);
+        TFDescription.setPrefHeight(67.0);
+        TFDescription.setPrefWidth(233.0);
 
-        TFGroupID.setAccessibleText("TFTeamName");
-        TFGroupID.setId("TFTeamName");
-        TFGroupID.setLayoutX(277.0);
-        TFGroupID.setLayoutY(36.0);
-        TFGroupID.setPrefHeight(25.0);
-        TFGroupID.setPrefWidth(103.0);
-
-        label6.setLayoutX(277.0);
+        label6.setLayoutX(407.0);
         label6.setLayoutY(15.0);
-        label6.setText("Working Group ID");
-
-        label7.setLayoutX(280.0);
-        label7.setLayoutY(63.0);
-        label7.setText("Description");
+        label6.setText("Description");
 
         TBWorkingGroups.setAccessibleText("TBWorkingGroups");
         TBWorkingGroups.setId("TBWorkingGroups");
-        TBWorkingGroups.setLayoutX(261.0);
+        TBWorkingGroups.setLayoutX(343.0);
         TBWorkingGroups.setLayoutY(130.0);
-        TBWorkingGroups.setPrefHeight(168.0);
-        TBWorkingGroups.setPrefWidth(431.0);
+        TBWorkingGroups.setPrefHeight(212.0);
+        TBWorkingGroups.setPrefWidth(607.0);
 
-        label8.setLayoutX(259.0);
-        label8.setLayoutY(113.0);
-        label8.setText("Working Groups");
+        label7.setLayoutX(343.0);
+        label7.setLayoutY(105.0);
+        label7.setText("Working Groups");
 
         TBMembers.setAccessibleText("TBMembers");
         TBMembers.setId("TBMembers");
-        TBMembers.setLayoutX(261.0);
-        TBMembers.setLayoutY(315.0);
-        TBMembers.setPrefHeight(112.0);
-        TBMembers.setPrefWidth(431.0);
+        TBMembers.setLayoutX(343.0);
+        TBMembers.setLayoutY(374.0);
+        TBMembers.setPrefHeight(155.0);
+        TBMembers.setPrefWidth(607.0);
 
-        label9.setLayoutX(261.0);
-        label9.setLayoutY(298.0);
-        label9.setText("Memebers");
+        label8.setLayoutX(343.0);
+        label8.setLayoutY(357.0);
+        label8.setText("Memebers");
 
         TFLeader.setAccessibleText("TFLeader");
         TFLeader.setId("TFLeader");
-        TFLeader.setLayoutX(388.0);
+        TFLeader.setLayoutX(648.0);
         TFLeader.setLayoutY(36.0);
         TFLeader.setPrefHeight(25.0);
-        TFLeader.setPrefWidth(103.0);
+        TFLeader.setPrefWidth(100.0);
 
-        label10.setLayoutX(388.0);
-        label10.setLayoutY(15.0);
-        label10.setText("Leader ");
+        label9.setLayoutX(649.0);
+        label9.setLayoutY(15.0);
+        label9.setText("Leader ");
 
-        LabelErrorMsg.setLayoutX(267.0);
-        LabelErrorMsg.setLayoutY(427.0);
+        LabelErrorMsg.setLayoutX(339.0);
+        LabelErrorMsg.setLayoutY(536.0);
         LabelErrorMsg.setText("Error msg");
 
-        TFNumbOfUsers.setLayoutX(495.0);
+        TFNumbOfUsers.setLayoutX(759.0);
         TFNumbOfUsers.setLayoutY(36.0);
         TFNumbOfUsers.setPrefHeight(25.0);
-        TFNumbOfUsers.setPrefWidth(117.0);
+        TFNumbOfUsers.setPrefWidth(100.0);
 
-        label11.setLayoutX(495.0);
-        label11.setLayoutY(15.0);
-        label11.setText("Number Of Users");
+        label10.setLayoutX(760.0);
+        label10.setLayoutY(15.0);
+        label10.setText("Number Of Users");
 
-        label12.setLayoutX(499.0);
-        label12.setLayoutY(63.0);
-        label12.setText("Deadline date");
+        label11.setLayoutX(651.0);
+        label11.setLayoutY(63.0);
+        label11.setText("Deadline date");
 
-        datePicker.setLayoutX(499.0);
+        datePicker.setLayoutX(650.0);
         datePicker.setLayoutY(80.0);
         datePicker.setPrefHeight(25.0);
-        datePicker.setPrefWidth(117.0);
+        datePicker.setPrefWidth(211.0);
 
+        label12.setLayoutX(329.0);
+        label12.setLayoutY(10.0);
+        label12.setPrefHeight(28.0);
+        label12.setPrefWidth(57.0);
+        label12.setText("Create");
+        label12.setFont(new Font(19.0));
+
+        label13.setLayoutX(327.0);
+        label13.setLayoutY(35.0);
+        label13.setPrefHeight(28.0);
+        label13.setPrefWidth(87.0);
+        label13.setText("Working");
+        label13.setFont(new Font(19.0));
+
+        label14.setLayoutX(329.0);
+        label14.setLayoutY(63.0);
+        label14.setPrefHeight(28.0);
+        label14.setPrefWidth(57.0);
+        label14.setText("Group");
+        label14.setFont(new Font(19.0));
+
+        setBehaviour();
         anchorPane.getChildren().add(TBUsers);
         anchorPane.getChildren().add(label);
         anchorPane.getChildren().add(ButtonDeleteUser);
@@ -325,30 +348,27 @@ public class AdminPaneGUI extends AnchorPane {
         tabPane.getTabs().add(tab0);
         anchorPane1.getChildren().add(TBRanking);
         tabPane.getTabs().add(tab1);
-        
-        setBehaviour();
-        
         getChildren().add(tabPane);
         getChildren().add(ButtonCreateWorkingGroup);
         getChildren().add(TFDescription);
-        getChildren().add(TFGroupID);
         getChildren().add(label6);
-        getChildren().add(label7);
         getChildren().add(TBWorkingGroups);
-        getChildren().add(label8);
+        getChildren().add(label7);
         getChildren().add(TBMembers);
-        getChildren().add(label9);
+        getChildren().add(label8);
         getChildren().add(TFLeader);
-        getChildren().add(label10);
+        getChildren().add(label9);
         getChildren().add(LabelErrorMsg);
         getChildren().add(TFNumbOfUsers);
+        getChildren().add(label10);
         getChildren().add(label11);
-        getChildren().add(label12);
         getChildren().add(datePicker);
+        getChildren().add(label12);
+        getChildren().add(label13);
+        getChildren().add(label14);
 
     }
-    
-    public void addUsersList(List<User> list){
+        public void addUsersList(List<User> list){
         TBUsers.setItems(list);
     }
     
@@ -373,7 +393,7 @@ public class AdminPaneGUI extends AnchorPane {
               ) //checking of all the inserted Txt Fields
            {
                String username=TFFirstName.getText()+TFLastName.getText();
-               User u=new User(username, TFPassword.getText(), (int) CBAdminLevel.getValue(),TFFirstName.getText(), TFLastName.getText(),0,TFEmail.getText()); 
+               User u=new User(username, TFPassword.getText(), (int) CBAdminLevel.getValue(),TFFirstName.getText(), TFLastName.getText(),TFEmail.getText()); 
                MainApp.insertUserInDB(u);
                LabelOperationEsit.setText("User saved!");
                TFPassword.setText("");
@@ -391,7 +411,7 @@ public class AdminPaneGUI extends AnchorPane {
         });
         
         ButtonCreateWorkingGroup.setOnMouseClicked(e->{
-            if(TFGroupID.getText().compareTo("")    != 0 &&
+            if(
                TFLeader.getText().compareTo("")     != 0 &&
                TFNumbOfUsers.getText().compareTo("")!= 0 &&
                TFDescription.getText().compareTo("")!= 0 &&
@@ -402,7 +422,7 @@ public class AdminPaneGUI extends AnchorPane {
                 
                 
                 try{
-                WorkingGroup wg=new WorkingGroup(Integer.parseInt(TFGroupID.getText()), TFDescription.getText(),sdf.format(new Date()),sdf.format(java.sql.Date.valueOf(datePicker.getValue())),Integer.parseInt(TFNumbOfUsers.getText()),false);
+                WorkingGroup wg=new WorkingGroup(0, TFDescription.getText(),sdf.format(new Date()),sdf.format(java.sql.Date.valueOf(datePicker.getValue())),Integer.parseInt(TFNumbOfUsers.getText()),false);
                 MainApp.createWorkingGroup(wg,TFLeader.getText());
                 LabelErrorMsg.setText("Working group saved successfully");
                 

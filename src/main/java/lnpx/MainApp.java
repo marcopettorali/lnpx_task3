@@ -54,16 +54,7 @@ public class MainApp extends Application {
         /************************************ /
         
         /* Getting ranking and converting in Table*/
-        List<UserRanking> userRanking=new ArrayList<>();
-        Map<User,Double> rank=Neo4JManager.loadLeadersRanking();
-        for(Map.Entry<User, Double> entry: rank.entrySet())
-        {
-            User keyUser=entry.getKey();
-            Double ValueRank=entry.getValue();
-            UserRanking ur=new UserRanking(keyUser.getUsername(),ValueRank);
-            userRanking.add(ur);
-        }
-        adminPane.addRank(userRanking);
+        updateLeadersTable();
         
         /********************************************/
         
@@ -102,6 +93,7 @@ public class MainApp extends Application {
     {
         Neo4JManager.insertWorkingGroup(wg, u);
         updateAdminWorkingGroupInterface();
+        updateLeadersTable();
     }
     
     private static void updateAdminUserInterface()
@@ -109,6 +101,24 @@ public class MainApp extends Application {
         List<User> userList= Neo4JManager.loadUsers();
         System.out.println(userList.size());
         adminPane.addUsersList(userList);
+        
+        //updating the ranking
+        updateLeadersTable();
+        
+    }
+    
+    private static void updateLeadersTable()
+    {
+        List<UserRanking> userRanking=new ArrayList<>();
+        Map<User,Double> rank=Neo4JManager.loadLeadersRanking();
+        for(Map.Entry<User, Double> entry: rank.entrySet())
+        {
+            User keyUser=entry.getKey();
+            Double ValueRank=entry.getValue();
+            UserRanking ur=new UserRanking(keyUser.getUsername(),ValueRank);
+            userRanking.add(ur);
+        }
+        adminPane.addRank(userRanking);
     }
     
     private static void updateAdminWorkingGroupInterface()
@@ -193,6 +203,15 @@ public class MainApp extends Application {
         ApplicationWorkingGroup a;
         a = new ApplicationWorkingGroup(userLogged,d.toString(),wg);
         Neo4JManager.insertApplication(a);
+        
+        //we update the suggested working groups (to remove the one we applied for)
+        List<SuggestedWorkingGroups> swg=new ArrayList<>();
+        Map<WorkingGroup,Double> wgDouble=Neo4JManager.loadSuggestedWorkingGroups(userLogged);
+        for(Map.Entry<WorkingGroup,Double> entry: wgDouble.entrySet())
+        {
+            swg.add(new SuggestedWorkingGroups(entry.getKey().getId(),entry.getValue()));
+        }
+        userPane.addSuggested(swg);
     }
     
     public static void loadApplicationsForWorkingGroup(WorkingGroup wg){

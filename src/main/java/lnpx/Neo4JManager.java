@@ -30,19 +30,19 @@ public class Neo4JManager {
 
     public static void createTestDB() {
 
-        insertUser(new User("admin", "admin", 1, "admin", "admin", 999999, "admin@neo4j.com"));
-        insertUser(new User("ciccio", "c.graziano", 0, "Ciccio", "Graziano", 131313, "ciccio@neo4j.com"));
-        insertUser(new User("dario", "d.lorenzoni", 0, "Dario", "Lorenzoni", 111111, "dario@neo4j.com"));
-        insertUser(new User("raffaele", "r.nocerino", 0, "Raffaele", "Nocerino", 222222, "raffaele@neo4j.com"));
-        insertUser(new User("marco", "m.pettorali", 0, "Marco", "Pettorali", 333333, "marco@neo4j.com"));
-        insertUser(new User("riccardo", "r.xefraj", 0, "Riccardo", "Xefraj", 444444, "riccardo@neo4j.com"));
-        insertUser(new User("ciro", "c.immobile", 0, "Ciro", "Immobile", 555555, "ciro@neo4j.com"));
-        insertUser(new User("memphis", "m.depay", 0, "Memphis", "Depay", 666666, "memphis@neo4j.com"));
-        insertUser(new User("cristiano", "c.ronaldo", 0, "Cristiano", "Ronaldo", 777777, "cristiano@neo4j.com"));
-        insertUser(new User("timo", "t.warner", 0, "Timo", "Werner", 888888, "timo@neo4j.com"));
-        insertUser(new User("sergio", "s.ramos", 0, "Sergio", "Ramos", 999999, "sergio@neo4j.com"));
-        insertUser(new User("paul", "p.pogba", 0, "Paul", "Pogba", 101010, "paul@neo4j.com"));
-        insertUser(new User("romelu", "r.lukaku", 0, "Romelu", "Lukaku", 121212, "romelu@neo4j.com"));
+        insertUser(new User("admin", "admin", 1, "admin", "admin", "admin@neo4j.com"));
+        insertUser(new User("ciccio", "c.graziano", 0, "Ciccio", "Graziano", "ciccio@neo4j.com"));
+        insertUser(new User("dario", "d.lorenzoni", 0, "Dario", "Lorenzoni", "dario@neo4j.com"));
+        insertUser(new User("raffaele", "r.nocerino", 0, "Raffaele", "Nocerino", "raffaele@neo4j.com"));
+        insertUser(new User("marco", "m.pettorali", 0, "Marco", "Pettorali", "marco@neo4j.com"));
+        insertUser(new User("riccardo", "r.xefraj", 0, "Riccardo", "Xefraj", "riccardo@neo4j.com"));
+        insertUser(new User("ciro", "c.immobile", 0, "Ciro", "Immobile","ciro@neo4j.com"));
+        insertUser(new User("memphis", "m.depay", 0, "Memphis", "Depay", "memphis@neo4j.com"));
+        insertUser(new User("cristiano", "c.ronaldo", 0, "Cristiano", "Ronaldo", "cristiano@neo4j.com"));
+        insertUser(new User("timo", "t.warner", 0, "Timo", "Werner", "timo@neo4j.com"));
+        insertUser(new User("sergio", "s.ramos", 0, "Sergio", "Ramos", "sergio@neo4j.com"));
+        insertUser(new User("paul", "p.pogba", 0, "Paul", "Pogba","paul@neo4j.com"));
+        insertUser(new User("romelu", "r.lukaku", 0, "Romelu", "Lukaku","romelu@neo4j.com"));
 
         insertWorkingGroup(new WorkingGroup(1, "Best squad 4ever", "2020-01-10", "2020-10-01", 11, false), "c.ronaldo");
         insertWorkingGroup(new WorkingGroup(2, "DB project", "2020-01-10", "2020-10-01", 11, false), "c.graziano");
@@ -154,7 +154,7 @@ public class Neo4JManager {
                 String query = ""
                         + "MATCH (u:User)-[:WORKS_IN]->(w:WorkingGroup) "
                         + "WHERE w.id = $id "
-                        + "RETURN u.username, u.password, u.adminLvl, u.firstName, u.lastName, u.matriculationNum, u.email";
+                        + "RETURN u.username, u.password, u.adminLvl, u.firstName, u.lastName, u.email";
                 Map<String, Object> params = new HashMap<>();
                 params.put("id", workingGroupID);
                 StatementResult sr = tx.run(query, params);
@@ -168,8 +168,7 @@ public class Neo4JManager {
                                 next.get(2).asInt(),
                                 next.get(3).asString(),
                                 next.get(4).asString(),
-                                next.get(5).asInt(),
-                                next.get(6).asString()
+                                next.get(5).asString()
                         ));
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -188,7 +187,7 @@ public class Neo4JManager {
                 String query = ""
                         + "MATCH (u:User)-[:LEADER_OF]->(w:WorkingGroup) "
                         + "WHERE w.id = $id "
-                        + "RETURN u.username, u.password, u.adminLvl, u.firstName, u.lastName, u.matriculationNum, u.email";
+                        + "RETURN u.username, u.password, u.adminLvl, u.firstName, u.lastName, u.email";
                 Map<String, Object> params = new HashMap<>();
                 params.put("id", workingGroupID);
                 StatementResult sr = tx.run(query, params);
@@ -202,8 +201,7 @@ public class Neo4JManager {
                                 next.get(2).asInt(),
                                 next.get(3).asString(),
                                 next.get(4).asString(),
-                                next.get(5).asInt(),
-                                next.get(6).asString()
+                                next.get(5).asString()
                         ));
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -487,14 +485,13 @@ public class Neo4JManager {
                 
                 String query = "CREATE (u:User {"
                         + " username:$username, password:$password, adminLvl:$adminLvl, firstName:$firstName,"
-                        + "lastName:$lastName, matriculationNum:$matr, email:$email})";
+                        + "lastName:$lastName, email:$email})";
                 params.clear();
                 params.put("username", username);
                 params.put("password", u.getPassword());
                 params.put("adminLvl", u.getAdminLvl());
                 params.put("firstName", u.getFirstName());
                 params.put("lastName", u.getLastName());
-                params.put("matr", u.getMatriculationNum());
                 params.put("email", u.getEmail());
 
                 tx.run(query, params);
@@ -581,7 +578,7 @@ public class Neo4JManager {
 
                 String query = "MATCH (u:User) "
                         + "RETURN DISTINCT u.username,u.password,u.adminLvl,u.firstName,u.lastName, "
-                        + "u.matriculationNum, u.email";
+                        + "u.email";
 
                 StatementResult sr = tx.run(query);
 
@@ -593,10 +590,9 @@ public class Neo4JManager {
                     int adminLvl = rec.get(2).asInt();
                     String first = rec.get(3).asString();
                     String last = rec.get(4).asString();
-                    int matr = rec.get(5).asInt();
-                    String email = rec.get(6).asString();
+                    String email = rec.get(5).asString();
 
-                    ret.add(new User(usern, passw, adminLvl, first, last, matr, email));
+                    ret.add(new User(usern, passw, adminLvl, first, last, email));
 
                 }
 
@@ -664,7 +660,7 @@ public class Neo4JManager {
 
                 String query = "MATCH (u:User)-[:LEADER_OF]->(w:WorkingGroup) "
                         + "RETURN DISTINCT u.username,u.password,u.adminLvl,u.firstName,u.lastName, "
-                        + "u.matriculationNum, u.email "
+                        + " u.email "
                         + ",w.id,w.description,w.startDate,w.deadlineDate,w.usersRequired,w.completed ";
 
                 StatementResult sr = tx.run(query);
@@ -672,12 +668,12 @@ public class Neo4JManager {
 
                     Record rec = sr.next();
                     
-                        int id = rec.get(7).asInt();
-                        String descr = rec.get(8).asString();
-                        String d1 = rec.get(9).asLocalDate().toString();
-                        String d2 = rec.get(10).asLocalDate().toString();
-                        int userReq = rec.get(11).asInt();
-                        boolean compl = rec.get(12).asBoolean();
+                        int id = rec.get(6).asInt();
+                        String descr = rec.get(7).asString();
+                        String d1 = rec.get(8).asLocalDate().toString();
+                        String d2 = rec.get(9).asLocalDate().toString();
+                        int userReq = rec.get(10).asInt();
+                        boolean compl = rec.get(11).asBoolean();
 
                         WorkingGroup temp = new WorkingGroup(id, descr, d1, d2, userReq, compl);
 
@@ -686,10 +682,9 @@ public class Neo4JManager {
                         int adminLvl = rec.get(2).asInt();
                         String first = rec.get(3).asString();
                         String last = rec.get(4).asString();
-                        int matr = rec.get(5).asInt();
-                        String email = rec.get(6).asString();
+                        String email = rec.get(5).asString();
 
-                        User u = new User(usern, passw, adminLvl, first, last, matr, email);
+                        User u = new User(usern, passw, adminLvl, first, last, email);
                         
                         boolean b=false;
                         
