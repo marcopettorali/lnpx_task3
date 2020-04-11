@@ -526,10 +526,51 @@ public class Neo4JManager {
         }
         
     }
+    
+    private static boolean checkUser(String user){
+        
+         try (Session session = driver.session()) {
+            Map<String, Object> params = new HashMap<>();
+            List<Boolean> ret = new ArrayList<>();
+            session.readTransaction((Transaction tx) -> {
+
+                String query = "MATCH(u:User) "
+                            + "WHERE u.username=$user "
+                            + "RETURN count(u)";
+                
+                params.put("user",user);
+                StatementResult sr = tx.run(query);
+                
+                if(sr.hasNext()){
+                    Record rec = sr.next();
+                    int r = rec.get(0).asInt();
+                    if(r==0){
+                        ret.add(false);
+                    }else{
+                        ret.add(true);
+                    }
+                }
+                return 1;
+            });
+            
+            if(!ret.get(0)){
+                return false;
+            }else{
+                return true;
+            }
+            
+        
+    }
+   }
             
     
-    public static void insertWorkingGroup(WorkingGroup wg, String user) {
-
+    public static boolean insertWorkingGroup(WorkingGroup wg, String user) {
+        
+        boolean check=Neo4JManager.checkUser(user);
+        if(!check){
+            return false;
+        }
+        
         try (Session session = driver.session()) {
             
             
@@ -567,6 +608,7 @@ public class Neo4JManager {
                 return 1;
             });
            
+            return true;
         }
     }
 
