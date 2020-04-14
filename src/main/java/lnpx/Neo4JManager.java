@@ -539,7 +539,7 @@ public class Neo4JManager {
                             + "RETURN count(u)";
                 
                 params.put("user",user);
-                StatementResult sr = tx.run(query);
+                StatementResult sr = tx.run(query,params);
                 
                 if(sr.hasNext()){
                     Record rec = sr.next();
