@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
 
 public class UserPaneGUI extends AnchorPane {
 
-    protected final TabPane tabPane;
+     protected final TabPane tabPane;
     protected final Tab tab;
     protected final AnchorPane anchorPane;
     protected final Label label;
@@ -45,6 +45,8 @@ public class UserPaneGUI extends AnchorPane {
     protected final Label usersLabel;
     protected final Label usersRequiredLabel;
     protected final Label completedLabel;
+    protected final UserOverviewTable membersTable;
+    protected final Label label11;
 
     public UserPaneGUI() {
 
@@ -81,6 +83,8 @@ public class UserPaneGUI extends AnchorPane {
         usersLabel = new Label();
         usersRequiredLabel = new Label();
         completedLabel = new Label();
+        membersTable = new UserOverviewTable();
+        label11 = new Label();
 
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -195,35 +199,35 @@ public class UserPaneGUI extends AnchorPane {
         label4.setText("About the selected working group");
         label4.setFont(new Font(20.0));
 
-        label5.setLayoutX(494.0);
+        label5.setLayoutX(489.0);
         label5.setLayoutY(87.0);
         label5.setText("Description");
         label5.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         label5.setFont(new Font("System Bold", 12.0));
 
-        label6.setLayoutX(493.0);
-        label6.setLayoutY(144.0);
+        label6.setLayoutX(489.0);
+        label6.setLayoutY(136.0);
         label6.setText("Start Date");
         label6.setFont(new Font("System Bold", 12.0));
 
-        label7.setLayoutX(492.0);
-        label7.setLayoutY(208.0);
+        label7.setLayoutX(489.0);
+        label7.setLayoutY(183.0);
         label7.setText("Deadline Date");
         label7.setFont(new Font("System Bold", 12.0));
 
-        label8.setLayoutX(492.0);
-        label8.setLayoutY(265.0);
+        label8.setLayoutX(489.0);
+        label8.setLayoutY(225.0);
         label8.setText("Users");
         label8.setFont(new Font("System Bold", 12.0));
 
-        label9.setLayoutX(492.0);
-        label9.setLayoutY(324.0);
+        label9.setLayoutX(489.0);
+        label9.setLayoutY(265.0);
         label9.setText("Users Required");
         label9.setFont(new Font("System Bold", 12.0));
 
-        label10.setLayoutX(492.0);
-        label10.setLayoutY(389.0);
-        label10.setText("All members finished the work");
+        label10.setLayoutX(489.0);
+        label10.setLayoutY(307.0);
+        label10.setText("My part of work completed");
         label10.setTextOverrun(javafx.scene.control.OverrunStyle.CLIP);
         label10.setFont(new Font("System Bold", 12.0));
 
@@ -231,25 +235,37 @@ public class UserPaneGUI extends AnchorPane {
         descriptionLabel.setLayoutY(87.0);
         descriptionLabel.setText("Description of the selected working group will appear here");
 
-        startDateLabel.setLayoutX(749.0);
-        startDateLabel.setLayoutY(144.0);
+        startDateLabel.setLayoutX(748.0);
+        startDateLabel.setLayoutY(136.0);
         startDateLabel.setText("_ / _ / _");
 
         deadlineDateLabel.setLayoutX(748.0);
-        deadlineDateLabel.setLayoutY(208.0);
+        deadlineDateLabel.setLayoutY(183.0);
         deadlineDateLabel.setText("_ / _ / _");
 
-        usersLabel.setLayoutX(747.0);
-        usersLabel.setLayoutY(265.0);
+        usersLabel.setLayoutX(751.0);
+        usersLabel.setLayoutY(225.0);
         usersLabel.setText("#");
 
-        usersRequiredLabel.setLayoutX(747.0);
-        usersRequiredLabel.setLayoutY(324.0);
+        usersRequiredLabel.setLayoutX(751.0);
+        usersRequiredLabel.setLayoutY(265.0);
         usersRequiredLabel.setText("#");
 
-        completedLabel.setLayoutX(745.0);
-        completedLabel.setLayoutY(389.0);
+        completedLabel.setLayoutX(755.0);
+        completedLabel.setLayoutY(307.0);
         completedLabel.setText("...");
+
+        membersTable.setId("TBCompletedJobs");
+        membersTable.setLayoutX(487.0);
+        membersTable.setLayoutY(381.0);
+        membersTable.setPrefHeight(192.0);
+        membersTable.setPrefWidth(627.0);
+
+        label11.setLayoutX(489.0);
+        label11.setLayoutY(351.0);
+        label11.setText("Team members");
+        label11.setTextOverrun(javafx.scene.control.OverrunStyle.CLIP);
+        label11.setFont(new Font("System Bold", 12.0));
 
         anchorPane.getChildren().add(label);
         anchorPane.getChildren().add(currentTable);
@@ -270,6 +286,7 @@ public class UserPaneGUI extends AnchorPane {
         
         setBehaviour();
         
+        
         getChildren().add(tabPane);
         getChildren().add(label4);
         getChildren().add(label5);
@@ -284,10 +301,12 @@ public class UserPaneGUI extends AnchorPane {
         getChildren().add(usersLabel);
         getChildren().add(usersRequiredLabel);
         getChildren().add(completedLabel);
+        getChildren().add(membersTable);
+        getChildren().add(label11);
 
     }
     
-    public void setBehaviour()
+public void setBehaviour()
     {
         currentTable.setOnMouseClicked(e->{
             WorkingGroup wg=currentTable.getSelected();
@@ -390,10 +409,8 @@ public class UserPaneGUI extends AnchorPane {
         usersLabel.setText(String.valueOf(Neo4JManager.loadUsersInWorkingGroup(wg.getId()).size()));
         usersRequiredLabel.setText(String.valueOf(wg.getUsersRequired()));
         completedLabel.setText(String.valueOf(Neo4JManager.checkCompletedWork(wg)));
-        
+        membersTable.setItems(Neo4JManager.loadUsersInWorkingGroup(wg.getId()));
         // need job done or not , gestisci le casistiche 
     }
-    
-    
-
 }
+
