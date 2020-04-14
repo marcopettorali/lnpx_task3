@@ -195,7 +195,6 @@ public class MainApp extends Application {
     
     public static void acceptApplication(ApplicationWorkingGroup a){
         Neo4JManager.acceptApplication(a);
-        //aggiornare l'interfaccia trammite workingGroupID che non ho
     }
     
     public static void sendApplication(int wg){
@@ -227,7 +226,7 @@ public class MainApp extends Application {
     
     /***************************** END USER STAGE *****************************/
    
-    public static void login(String username, String password)
+    public static int login(String username, String password)
     {
         int loginValue =Neo4JManager.login(username, password);
         if(loginValue == 1)
@@ -239,6 +238,8 @@ public class MainApp extends Application {
             userLogged=username;
             loadUserStage();
         }
+        
+        return loginValue;
     }
     
     @Override
