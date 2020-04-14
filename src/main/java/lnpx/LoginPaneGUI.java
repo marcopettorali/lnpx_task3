@@ -44,7 +44,8 @@ public class LoginPaneGUI extends AnchorPane {
         loginButton.setText("LOGIN");
         VBox.setMargin(loginButton, new Insets(10.0, 0.0, 0.0, 0.0)); 
         loginButton.setOnAction(e -> {
-            MainApp.login(usernameTextField.getText(), passwordTextField.getText());
+            if(MainApp.login(usernameTextField.getText(), passwordTextField.getText())<0)
+                errorLabel.setText("Wrong username or password");
                      
         });
 
