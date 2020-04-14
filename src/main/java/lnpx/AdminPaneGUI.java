@@ -204,7 +204,8 @@ public class AdminPaneGUI extends AnchorPane {
         LabelOperationEsit.setId("TFOperationEsit");
         LabelOperationEsit.setLayoutX(20.0);
         LabelOperationEsit.setLayoutY(360.0);
-        LabelOperationEsit.setText("Operation Esit");
+        LabelOperationEsit.setStyle("-fx-text-fill: red;");
+        LabelOperationEsit.setText("");
 
         TFPassword.setLayoutX(27.0);
         TFPassword.setLayoutY(272.0);
@@ -286,7 +287,8 @@ public class AdminPaneGUI extends AnchorPane {
 
         LabelErrorMsg.setLayoutX(339.0);
         LabelErrorMsg.setLayoutY(536.0);
-        LabelErrorMsg.setText("Error msg");
+        LabelErrorMsg.setStyle("-fx-text-fill: red;");
+        LabelErrorMsg.setText("");
 
         TFNumbOfUsers.setLayoutX(759.0);
         TFNumbOfUsers.setLayoutY(36.0);
@@ -432,7 +434,7 @@ public class AdminPaneGUI extends AnchorPane {
             }
             else
             {
-               LabelErrorMsg.setText("Insert all informations\nin the correct format");
+               LabelErrorMsg.setText("Insert all informations in the correct format");
             }
         });
         
