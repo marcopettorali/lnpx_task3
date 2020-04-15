@@ -806,22 +806,23 @@ public class Neo4JManager {
                 params.put("id", wg.getId());
 
                 tx.run(query, params);
-                boolean b = checkCompletedWork(wg);
+                return 1;
+            });
+            
+            boolean b = checkCompletedWork(wg);
                 
-                if (b) {
-
+            if (b) {
+                session.writeTransaction((Transaction tx) -> {
+                    
                     String query2 = "MATCH (w:WorkingGroup) WHERE w.id=$id "
                             + "Set w.completed=true";
                     params.clear();
                     params.put("id", wg.getId());
 
-                    tx.run(query2, params);
-
-                }
-
-                return 1;
-
-            });
+                    tx.run(query2, params);              
+                    return 1;
+                });
+            }
         }
     }
 
@@ -844,7 +845,7 @@ public class Neo4JManager {
                     int req = rec.get(0).asInt();
                     int count = rec.get(1).asInt();
            
-                    if (req == count+1) {
+                    if (req == count) {
                         ret.add(true);
                     } else {
                         ret.add(false);
