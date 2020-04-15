@@ -107,7 +107,7 @@ public class Neo4JManager {
                 Map<String, Object> params = new HashMap<>();
                 params.put("user", application.getUsername());
                 params.put("id", application.getWorkingGroupID());
-                params.put("timestamp", application.getTimestamp());
+                params.put("timestamp", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
                 tx.run(query, params);
                 return 1;
             });
@@ -253,7 +253,7 @@ public class Neo4JManager {
                 String query = ""
                         + "MATCH (u:User)-[a:APPLYED_FOR]->(w:WorkingGroup) "
                         + "WHERE w.id = $id "
-                        + "RETURN u.username, a.timestamp";
+                        + "RETURN u.username, a.since";
                 Map<String, Object> params = new HashMap<>();
                 params.put("id", workingGroupID);
                 StatementResult sr = tx.run(query, params);
