@@ -26,9 +26,12 @@ public class SuggestedWorkingGroupTable extends TableView<SuggestedWorkingGroups
         TCWorkingGroupID.setCellValueFactory(new PropertyValueFactory<>("WorkingGroupID"));
         
         TableColumn TCAffinity=new TableColumn("Affinity");
-        TCAffinity.setCellValueFactory(new PropertyValueFactory<>("Affinty"));
+        TCAffinity.setCellValueFactory(new PropertyValueFactory<>("Affinity"));
         
-        this.getColumns().addAll(TCWorkingGroupID,TCAffinity);
+        TableColumn TCDescription=new TableColumn("Description");
+        TCDescription.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        
+        this.getColumns().addAll(TCWorkingGroupID,TCAffinity,TCDescription);
         this.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); 
     }
     
@@ -43,8 +46,8 @@ public class SuggestedWorkingGroupTable extends TableView<SuggestedWorkingGroups
     }
     
         
-    public SuggestedWorkingGroups getSelected() {
-        return this.getSelectionModel().getSelectedItem();
+    public WorkingGroup getSelected() {
+        return this.getSelectionModel().getSelectedItem().getWg();
     }
     
 }

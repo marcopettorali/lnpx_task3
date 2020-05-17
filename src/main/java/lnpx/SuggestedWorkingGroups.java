@@ -10,13 +10,23 @@ package lnpx;
  * @author Riccardo
  */
 public class SuggestedWorkingGroups {
+    private WorkingGroup wg;
     private int workingGroupID;
+    private String description;
     private Double affinity;
 
-    public SuggestedWorkingGroups(int workingGroupID, Double affinity) {
+    public SuggestedWorkingGroups(WorkingGroup wg, int workingGroupID, Double affinity, String description) {
+        this.wg=wg;
         this.workingGroupID = workingGroupID;
+        this.description=description;
         this.affinity = affinity;
     }
+
+    public WorkingGroup getWg() {
+        return wg;
+    }
+    
+    
 
     public int getWorkingGroupID() {
         return workingGroupID;
@@ -25,6 +35,12 @@ public class SuggestedWorkingGroups {
     public Double getAffinity() {
         return affinity;
     }
+
+    public String getDescription() {
+        return description;
+    }
+    
+
     
     
 }

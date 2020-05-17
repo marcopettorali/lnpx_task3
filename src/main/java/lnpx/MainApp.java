@@ -151,7 +151,7 @@ public class MainApp extends Application {
         Map<WorkingGroup,Double> wgDouble=Neo4JManager.loadSuggestedWorkingGroups(userLogged);
         for(Map.Entry<WorkingGroup,Double> entry: wgDouble.entrySet())
         {
-            swg.add(new SuggestedWorkingGroups(entry.getKey().getId(),entry.getValue()));
+            swg.add(new SuggestedWorkingGroups(entry.getKey(), entry.getKey().getId(),entry.getValue(),entry.getKey().getDescription()));
         }
         userPane.addSuggested(swg);
         
@@ -208,7 +208,7 @@ public class MainApp extends Application {
         Map<WorkingGroup,Double> wgDouble=Neo4JManager.loadSuggestedWorkingGroups(userLogged);
         for(Map.Entry<WorkingGroup,Double> entry: wgDouble.entrySet())
         {
-            swg.add(new SuggestedWorkingGroups(entry.getKey().getId(),entry.getValue()));
+            swg.add(new SuggestedWorkingGroups(entry.getKey(),entry.getKey().getId(),entry.getValue(),entry.getKey().getDescription() ));
         }
         userPane.addSuggested(swg);
     }
@@ -264,8 +264,8 @@ public class MainApp extends Application {
         
         Neo4JManager.connectToDB("bolt://localhost:7687","Graph","");
         System.out.println("Connessione riuscita");
-        Neo4JManager.clearDB();
-        Neo4JManager.createTestDB();
+        //Neo4JManager.clearDB();
+        //Neo4JManager.createTestDB();
         launch(args);
         System.out.println("Creazione DB riuscita");
         Neo4JManager.closeDB();
