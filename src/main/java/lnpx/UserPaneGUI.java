@@ -227,7 +227,7 @@ public class UserPaneGUI extends AnchorPane {
 
         label10.setLayoutX(489.0);
         label10.setLayoutY(307.0);
-        label10.setText("My part of work completed");
+        label10.setText("Work completed");
         label10.setTextOverrun(javafx.scene.control.OverrunStyle.CLIP);
         label10.setFont(new Font("System Bold", 12.0));
 
@@ -332,6 +332,12 @@ public void setBehaviour()
         //this has a double paramter that need to be considered
         suggestedTable.setOnMouseClicked(e->{
                 //no info of this group are provvided
+            WorkingGroup wg= suggestedTable.getSelected();
+            if(wg!=null)
+            {
+                updateAboutWorkingGroup(wg);
+                MainApp.loadApplicationsForWorkingGroup(wg);
+            }
         });
         
         markWorkAsCompletedButton.setOnMouseClicked(e->{
@@ -363,10 +369,10 @@ public void setBehaviour()
         
         // this has a double parameter in suggested we need to check 
        sendApplicationButton.setOnMouseClicked(e->{
-            SuggestedWorkingGroups swg=suggestedTable.getSelected();
+            WorkingGroup swg=suggestedTable.getSelected();
             if(swg!=null)
             {
-                int wgId=swg.getWorkingGroupID();
+                int wgId=swg.getId();
                 MainApp.sendApplication(wgId);
                 WorkingGroup wgSelected= leadedTable.getSelected();
                 if(wgSelected!=null)

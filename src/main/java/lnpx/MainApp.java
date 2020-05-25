@@ -151,7 +151,7 @@ public class MainApp extends Application {
         Map<WorkingGroup,Double> wgDouble=Neo4JManager.loadSuggestedWorkingGroups(userLogged);
         for(Map.Entry<WorkingGroup,Double> entry: wgDouble.entrySet())
         {
-            swg.add(new SuggestedWorkingGroups(entry.getKey().getId(),entry.getValue()));
+            swg.add(new SuggestedWorkingGroups(entry.getKey(), entry.getKey().getId(),entry.getValue(),entry.getKey().getDescription()));
         }
         userPane.addSuggested(swg);
         
@@ -208,7 +208,7 @@ public class MainApp extends Application {
         Map<WorkingGroup,Double> wgDouble=Neo4JManager.loadSuggestedWorkingGroups(userLogged);
         for(Map.Entry<WorkingGroup,Double> entry: wgDouble.entrySet())
         {
-            swg.add(new SuggestedWorkingGroups(entry.getKey().getId(),entry.getValue()));
+            swg.add(new SuggestedWorkingGroups(entry.getKey(),entry.getKey().getId(),entry.getValue(),entry.getKey().getDescription() ));
         }
         userPane.addSuggested(swg);
     }
