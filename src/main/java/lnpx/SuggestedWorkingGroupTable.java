@@ -47,6 +47,8 @@ public class SuggestedWorkingGroupTable extends TableView<SuggestedWorkingGroups
     
         
     public WorkingGroup getSelected() {
+        if(this.getSelectionModel().getSelectedItem()==null)
+            return null;
         return this.getSelectionModel().getSelectedItem().getWg();
     }
     
