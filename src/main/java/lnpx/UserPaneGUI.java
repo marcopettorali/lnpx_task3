@@ -336,7 +336,6 @@ public void setBehaviour()
             if(wg!=null)
             {
                 updateAboutWorkingGroup(wg);
-                MainApp.loadApplicationsForWorkingGroup(wg);
             }
         });
         
