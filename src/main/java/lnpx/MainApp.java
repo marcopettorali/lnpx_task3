@@ -1,23 +1,14 @@
 package lnpx;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import static lnpx.Neo4JManager.insertUser;
-import static lnpx.Neo4JManager.insertWorkingGroup;
 
 public class MainApp extends Application {
     private static Stage LoginStage;
@@ -170,10 +161,6 @@ public class MainApp extends Application {
         
     }
     
-    public static void updateAboutWorkingGroup(){
-        //this function should update all the labels in the right
-        //each time an element is selects
-    }
     
     public static void markWorkAsComplited(WorkingGroup wg){
         System.out.println("Mark as completed");
@@ -219,10 +206,6 @@ public class MainApp extends Application {
         
     }
     
-    public static void updateCurrentWorkingGroups()
-    {
-        
-    }
     
     /***************************** END USER STAGE *****************************/
    
