@@ -1,4 +1,4 @@
-# lnpx_task3
+# Workgroup Manager
 
 ## Description of the system
 
